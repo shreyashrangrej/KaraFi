@@ -101,8 +101,30 @@ const updateUser = async (req, res, next) => {
     res.status(200).json({ user: user.toObject({ getters: true }) });
 };
 
-const deleteUser = (req, res, next) => {
-    res.json({ message: "POST 1 tea comment" });
+const deleteUser = async (req, res, next) => {
+    const userId = req.params.id;
+
+    let user;
+    try {
+        user = await userSchema.findById(userId);
+    } catch (err) {
+        const error = new httpError(
+            'Something went wrong, could not delete user.',
+            500
+        );
+        return next(error);
+    }
+
+    try {
+        await user.remove();
+    } catch (err) {
+        const error = new httpError(
+            'Something went wrong, could not delete user.',
+            500
+        );
+        return next(error);
+    }
+    res.status(200).json({ message: 'Deleted user.' });
 };
 
 module.exports = {
