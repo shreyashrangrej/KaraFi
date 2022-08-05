@@ -5,11 +5,20 @@ const userSchema = require('../models/user.model');
 
 
 const getUser = async (req, res, next) => {
-    res.json({ message: "GET all Users" });
+    try {
+        const users = await userSchema.find()
+        res.status(200).send(users)
+    } catch (e) {
+        const error = new httpError(
+            'Something went wrong, could not find a user.',
+            500
+        );
+        return next(error);
+    }
 };
 
 const getUserById = async (req, res, next) => {
-    const userId = req.params.pid;
+    const userId = req.params.id;
     let user;
     try {
         user = await userSchema.findById(userId);
@@ -28,7 +37,7 @@ const getUserById = async (req, res, next) => {
         );
         return next(error);
     }
-    res.json({ user: user.toObject({ getters: true }) }); // => { place } => { place: place }
+    res.json({ user: user.toObject({ getters: true }) });
 };
 
 const createUser = async (req, res, next) => {
@@ -56,8 +65,40 @@ const createUser = async (req, res, next) => {
     res.status(201).json({ user: createdUser });
 };
 
-const updateUser = (req, res, next) => {
-    res.json({ message: "GET 1 tea" });
+const updateUser = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        throw new httpError('Invalid inputs passed, please check your data.', 422);
+    }
+
+    const { firstName, lastName } = req.body;
+    const userId = req.params.id;
+
+    let user;
+    try {
+        user = await userSchema.findById(userId);
+    } catch (err) {
+        const error = new httpError(
+            'Something went wrong, could not update user.',
+            500
+        );
+        return next(error);
+    }
+
+    user.firstName = firstName;
+    user.lastName = lastName;
+
+    try {
+        await user.save();
+    } catch (err) {
+        const error = new httpError(
+            'Something went wrong, could not update User.',
+            500
+        );
+        return next(error);
+    }
+
+    res.status(200).json({ user: user.toObject({ getters: true }) });
 };
 
 const deleteUser = (req, res, next) => {

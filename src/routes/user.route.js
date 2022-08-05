@@ -11,11 +11,11 @@ const {
 
 userRouter.get('/users', getUser)
 
-userRouter.get('user/:id', getUserById)
+userRouter.get('/user/:id', getUserById)
 
 userRouter.post('/user', createUser) 
 
-userRouter.put('/user/:id', updateUser) 
+userRouter.patch('/user/:id', updateUser) 
 
 userRouter.delete('/user/:id', deleteUser)
 
