@@ -47,10 +47,11 @@ const createUser = async (req, res, next) => {
             new httpError('Invalid inputs passed, please check your data.', 422)
         );
     }
-    const { firstName, lastName } = req.body;
+    const { firstName, lastName, email } = req.body;
     const createdUser = new userSchema({
         firstName,
-        lastName
+        lastName,
+        email
     });
 
     try {

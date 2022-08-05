@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
+const validator = require("validator")
 
 const userModel = new mongoose.Schema({
     firstName: {
@@ -10,9 +11,16 @@ const userModel = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 3,
+    },
+    email: {
+        type: String,
+        unique: true,
+        validate: [ validator.isEmail, 'Invalid Email!']
     }
 })
 
-const userSchema = new mongoose.model('userSchema', userModel)
+userModel.set("timestamps", true);
 
-module.exports = userSchema;
+const Users = new mongoose.model('Users', userModel)
+
+module.exports = Users;
