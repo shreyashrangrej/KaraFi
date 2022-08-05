@@ -72,7 +72,7 @@ const updateUser = async (req, res, next) => {
         throw new httpError('Invalid inputs passed, please check your data.', 422);
     }
 
-    const { firstName, lastName } = req.body;
+    const { firstName, lastName, email } = req.body;
     const userId = req.params.id;
 
     let user;
@@ -88,6 +88,7 @@ const updateUser = async (req, res, next) => {
 
     user.firstName = firstName;
     user.lastName = lastName;
+    user.email = email;
 
     try {
         await user.save();
