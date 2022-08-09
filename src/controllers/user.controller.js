@@ -33,11 +33,13 @@ const createUser = async (req, res, next) => {
         res.status(422).json({ Error: "Invalid inputs passed, please check your data." });
         return next();
     }
-    const { firstName, lastName, email } = req.body;
+    const { firstName, lastName, email, gender, dateOfBirth } = req.body;
     const createdUser = new userSchema({
         firstName,
         lastName,
-        email
+        email,
+        gender,
+        dateOfBirth
     });
 
     try {
@@ -56,7 +58,7 @@ const updateUser = async (req, res, next) => {
         return next();
     }
 
-    const { firstName, lastName, email } = req.body;
+    const { firstName, lastName, email, gender, dateOfBirth } = req.body;
     const userId = req.params.id;
 
     let user;
@@ -70,6 +72,8 @@ const updateUser = async (req, res, next) => {
     user.firstName = firstName;
     user.lastName = lastName;
     user.email = email;
+    user.gender = gender;
+    user.dateOfBirth = dateOfBirth;
 
     try {
         await user.save();

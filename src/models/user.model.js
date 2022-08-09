@@ -15,7 +15,17 @@ const userModel = new mongoose.Schema({
     email: {
         type: String,
         unique: true,
-        validate: [ validator.isEmail, 'Invalid Email!']
+        required: true,
+        validate: [validator.isEmail, 'Invalid Email!']
+    },
+    gender: {
+        type: String,
+        required: true,
+        enum: ['Male', 'Female', 'Other'],
+    },
+    dateOfBirth: {
+        type: Date,
+        required: true
     }
 })
 
