@@ -1,5 +1,6 @@
 const express = require('express')
 const userRouter = express.Router()
+const userModelValidate = require('../validators/user.validator')
 
 const {
     getUser,
@@ -13,9 +14,9 @@ userRouter.get('/users', getUser)
 
 userRouter.get('/user/:id', getUserById)
 
-userRouter.post('/user', createUser) 
+userRouter.post('/user', userModelValidate, createUser) 
 
-userRouter.patch('/user/:id', updateUser) 
+userRouter.patch('/user/:id', userModelValidate, updateUser) 
 
 userRouter.delete('/user/:id', deleteUser)
 
