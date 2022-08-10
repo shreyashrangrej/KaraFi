@@ -8,7 +8,7 @@
   <p align="center">
     An Open Project Management API
     <br />
-    <a href="https://github.com/shreyashrangrej/KaraFi"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/shreyashrangrej/KaraFi/tree/master/docs"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/shreyashrangrej/KaraFi">View Demo</a>
