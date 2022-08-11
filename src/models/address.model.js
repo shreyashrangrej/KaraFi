@@ -33,6 +33,11 @@ const addressModel = new mongoose.Schema({
     zipCode: {
         type: String,
         required: true
+    },
+
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: Users
     }
 });
 

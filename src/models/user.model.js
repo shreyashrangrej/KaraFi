@@ -32,6 +32,11 @@ const userModel = new mongoose.Schema({
     phoneNumber: {
         type: String,
         require: true,
+    },
+
+    address: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: Address
     }
 })
 
