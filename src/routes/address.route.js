@@ -7,10 +7,10 @@ const {
     createAddress
 } = require('../controllers/address.controller')
 
-userRouter.get('/addresses', getAddress)
+addressRouter.get('/addresses', getAddress)
 
-userRouter.get('/address/:id', getAddressById)
+addressRouter.get('/address/:id', getAddressById)
 
-userRouter.post('/address', createAddress)
+addressRouter.post('/address', createAddress)
 
 module.exports = addressRouter;

@@ -21,7 +21,7 @@ const getAddressById = async (req, res, next) => {
     if (!address) {
         return res.status(404).json({ Error: "Could not find the address for provided ID: " + addressId });
     }
-    res.json({ user: address.toObject({ getters: true }) });
+    res.json({ address: address.toObject({ getters: true }) });
 };
 
 const createAddress = async (req, res, next) => {
@@ -40,7 +40,7 @@ const createAddress = async (req, res, next) => {
         }
         return next();
     }
-    res.status(200).json({ user: createdUser.toObject({ getters: true }) });
+    res.status(200).json({ user: createdAddress.toObject({ getters: true }) });
 };
 
 module.exports = {
