@@ -8,6 +8,7 @@ const addressModel = new mongoose.Schema({
 
     addressLine2: {
         type: String,
+        required: true
     },
 
     country: {
