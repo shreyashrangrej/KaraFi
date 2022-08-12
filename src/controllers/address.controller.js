@@ -1,6 +1,8 @@
 const { validationResult } = require('express-validator');
 const addressSchema = require('../models/address.model');
 
+const userSchema = require('../models/user.model');
+
 const getAddress = async (req, res, next) => {
     try {
         const address = await addressSchema.find()
@@ -26,7 +28,7 @@ const getAddressById = async (req, res, next) => {
 };
 
 const createAddress = async (req, res, next) => {
-    const { addressLine1, addressLine2, country, state, district, city, zipCode } = req.body;
+    const { addressLine1, addressLine2, country, state, district, city, zipCode, user } = req.body;
     const createdAddress = new addressSchema({
         addressLine1,
         addressLine2,
@@ -34,7 +36,8 @@ const createAddress = async (req, res, next) => {
         state,
         district,
         city,
-        zipCode
+        zipCode,
+        user,
     });
 
     try {
@@ -46,6 +49,8 @@ const createAddress = async (req, res, next) => {
             });
         }
         await createdAddress.save();
+
+
     } catch (err) {
         if (err.code === 11000) {
             res.status(422).json({ Error: err.message });
@@ -54,6 +59,16 @@ const createAddress = async (req, res, next) => {
         }
         return next();
     }
+
+    try {
+        const findUser = await userSchema.findById(user)
+        findUser.address = createdAddress.id
+        findUser.save()
+    } catch (err) {
+        //Need to add some error message here
+        return next()
+    }
+
     res.status(200).json({ address: createdAddress.toObject({ getters: true }) });
 };
 
