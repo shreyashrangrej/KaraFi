@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator');
 const addressSchema = require('../models/address.model');
 
 const getAddress = async (req, res, next) => {
@@ -37,6 +38,13 @@ const createAddress = async (req, res, next) => {
     });
 
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({
+                success: false,
+                errors: errors.array(),
+            });
+        }
         await createdAddress.save();
     } catch (err) {
         if (err.code === 11000) {
