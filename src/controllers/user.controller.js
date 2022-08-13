@@ -115,10 +115,28 @@ const deleteUser = async (req, res, next) => {
     res.status(200).json({ deletedUser: user.toObject({ getters: true }) });
 };
 
+const getUserPopulate = async (req, res, next) => {
+    const userId = req.params.id;
+    const populateField = req.params.field;
+
+    let user;
+    try {
+        user = await userSchema.findById(userId).populate(populateField);
+    } catch (err) {
+        res.status(404).json({ Error: "Something went wrong, could not find user: " + userId });
+        return next();
+    }
+    if (!user) {
+        return res.status(404).json({ Error: "Could not find the user for provided ID: " + userId });
+    }
+    res.json({ user: user.toObject({ getters: true }) });
+};
+
 module.exports = {
     getUser,
     getUserById,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUserPopulate
 };

@@ -41,7 +41,13 @@ const addressModelValidate = [
         .exists({ checkFalsy: true })
         .withMessage('Zip code is required.')
         .isString()
-        .withMessage('Zip Code should be string.')
+        .withMessage('Zip Code should be string.'),
+
+    body('user')
+        .exists({ checkFalsy: true })
+        .withMessage(' User is required.')
+        .isString()
+        .withMessage('User should be string.')
 ];
 
 module.exports = addressModelValidate;

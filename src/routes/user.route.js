@@ -7,7 +7,8 @@ const {
     getUserById,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUserPopulate
 } = require('../controllers/user.controller.js')
 
 userRouter.get('/users', getUser)
@@ -19,5 +20,7 @@ userRouter.post('/user', userModelValidate, createUser)
 userRouter.patch('/user/:id', userModelValidate, updateUser) 
 
 userRouter.delete('/user/:id', deleteUser)
+
+userRouter.get('/user/:id/:field', getUserPopulate )
 
 module.exports = userRouter;

@@ -48,9 +48,18 @@ const createAddress = async (req, res, next) => {
                 errors: errors.array(),
             });
         }
-        await createdAddress.save();
-
-
+        try {
+            const findUser = await userSchema.findById(user)
+            if (!findUser) {
+                return res.status(404).json({ error: 'Could not find user for provided user ID: ' + user })
+            }
+            findUser.address = createdAddress.id
+            await createdAddress.save();
+            await findUser.save();
+        } catch {
+            res.status(500).json({ error: 'Something went wrong please try again.' })
+            return next()
+        }
     } catch (err) {
         if (err.code === 11000) {
             res.status(422).json({ Error: err.message });
@@ -58,15 +67,6 @@ const createAddress = async (req, res, next) => {
             res.status(500).json({ Error: "Creating address failed, please try again." });
         }
         return next();
-    }
-
-    try {
-        const findUser = await userSchema.findById(user)
-        findUser.address = createdAddress.id
-        findUser.save()
-    } catch (err) {
-        //Need to add some error message here
-        return next()
     }
 
     res.status(200).json({ address: createdAddress.toObject({ getters: true }) });
