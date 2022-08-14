@@ -125,10 +125,28 @@ const deleteAddress = async (req, res, next) => {
     res.status(200).json({ deletedAddress: address.toObject({ getters: true }) });
 };
 
+const getAddressPopulate = async (req, res, next) => {
+    const addressId = req.params.id;
+    const populateField = req.params.field;
+
+    let address;
+    try {
+        address = await addressSchema.findById(addressId).populate(populateField);
+    } catch (err) {
+        res.status(404).json({ Error: "Something went wrong, could not find address: " + addressId });
+        return next();
+    }
+    if (!address) {
+        return res.status(404).json({ Error: "Could not find the address for provided ID: " + addressId });
+    }
+    res.json({ address: address.toObject({ getters: true }) });
+};
+
 module.exports = {
     getAddress,
     getAddressById,
     createAddress,
     updateAddress,
-    deleteAddress
+    deleteAddress,
+    getAddressPopulate
 };

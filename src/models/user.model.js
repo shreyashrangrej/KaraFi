@@ -28,7 +28,7 @@ const userModel = new mongoose.Schema({
         type: Date,
         required: true
     },
-    
+
     phoneNumber: {
         type: String,
         require: true,

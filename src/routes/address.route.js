@@ -7,7 +7,8 @@ const {
     getAddressById,
     createAddress,
     updateAddress,
-    deleteAddress
+    deleteAddress,
+    getAddressPopulate
 } = require('../controllers/address.controller')
 
 addressRouter.get('/addresses', getAddress)
@@ -19,5 +20,7 @@ addressRouter.post('/address', addressModelValidate, createAddress)
 addressRouter.patch('/address/:id', addressModelValidate, updateAddress)
 
 addressRouter.delete('/address/:id', deleteAddress)
+
+addressRouter.get('/address/:id/:field', getAddressPopulate)
 
 module.exports = addressRouter;
