@@ -22,7 +22,7 @@ const getUserById = async (req, res, next) => {
     if (!user) {
         return res.status(404).json({ Error: "Could not find the user for provided ID: " + userId });
     }
-    res.json({ user: user.toObject({ getters: true }) });
+    res.json({ user: user});
 };
 
 const createUser = async (req, res, next) => {
@@ -53,7 +53,7 @@ const createUser = async (req, res, next) => {
         }
         return next();
     }
-    res.status(200).json({ user: createdUser.toObject({ getters: true }) });
+    res.status(200).json({ user: createdUser });
 };
 
 const updateUser = async (req, res, next) => {
@@ -92,7 +92,7 @@ const updateUser = async (req, res, next) => {
         }
         return next();
     }
-    res.status(200).json({ user: user.toObject({ getters: true }) });
+    res.status(200).json({ user: user });
 };
 
 const deleteUser = async (req, res, next) => {
@@ -112,7 +112,7 @@ const deleteUser = async (req, res, next) => {
         res.status(500).json({ error: "Something went wrong, could not delete user:" + userId });
         return next();
     }
-    res.status(200).json({ deletedUser: user.toObject({ getters: true }) });
+    res.status(200).json({ deletedUser: user });
 };
 
 const getUserPopulate = async (req, res, next) => {
@@ -129,7 +129,7 @@ const getUserPopulate = async (req, res, next) => {
     if (!user) {
         return res.status(404).json({ Error: "Could not find the user for provided ID: " + userId });
     }
-    res.json({ user: user.toObject({ getters: true }) });
+    res.json({ user: user });
 };
 
 module.exports = {
