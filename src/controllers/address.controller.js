@@ -6,7 +6,7 @@ const userSchema = require('../models/userDetail.model');
 const getAddress = async (req, res, next) => {
     try {
         const address = await addressSchema.find()
-        res.status(200).send({ address: address })
+        res.status(200).send({ addresses: address })
     } catch (err) {
         return res.status(404).json({ Error: "Something went wrong, could not find addresses." });
     }
@@ -24,7 +24,7 @@ const getAddressById = async (req, res, next) => {
     if (!address) {
         return res.status(404).json({ Error: "Could not find the address for provided ID: " + addressId });
     }
-    res.json({ address: address });
+    res.status(200).send({ address: address })
 };
 
 const createAddress = async (req, res, next) => {
