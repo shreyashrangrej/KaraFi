@@ -9,7 +9,7 @@ const {
     updateUser,
     deleteUser,
     getUserPopulate
-} = require('../controllers/user.controller.js')
+} = require('../controllers/userDetail.controller')
 
 userRouter.get('/users', getUser)
 
