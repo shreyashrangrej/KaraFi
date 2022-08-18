@@ -24,7 +24,7 @@ const getAddressById = async (req, res, next) => {
     if (!address) {
         return res.status(404).json({ Error: "Could not find the address for provided ID: " + addressId });
     }
-    res.json({ address: address.toObject({ getters: true }) });
+    res.json({ address: address });
 };
 
 const createAddress = async (req, res, next) => {
@@ -69,7 +69,7 @@ const createAddress = async (req, res, next) => {
         return next();
     }
 
-    res.status(200).json({ address: createdAddress.toObject({ getters: true }) });
+    res.status(200).json({ address: createdAddress });
 };
 
 const updateAddress = async (req, res, next) => {
@@ -102,7 +102,7 @@ const updateAddress = async (req, res, next) => {
         }
         return next();
     }
-    res.status(200).json({ address: address.toObject({ getters: true }) });
+    res.status(200).json({ address: address });
 };
 
 const deleteAddress = async (req, res, next) => {
@@ -122,7 +122,7 @@ const deleteAddress = async (req, res, next) => {
         res.status(500).json({ error: "Something went wrong, could not delete address:" + addressId });
         return next();
     }
-    res.status(200).json({ deletedAddress: address.toObject({ getters: true }) });
+    res.status(200).json({ deletedAddress: address });
 };
 
 const getAddressPopulate = async (req, res, next) => {
@@ -139,7 +139,7 @@ const getAddressPopulate = async (req, res, next) => {
     if (!address) {
         return res.status(404).json({ Error: "Could not find the address for provided ID: " + addressId });
     }
-    res.json({ address: address.toObject({ getters: true }) });
+    res.json({ address: address });
 };
 
 module.exports = {
