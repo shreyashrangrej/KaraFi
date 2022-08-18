@@ -1,6 +1,6 @@
 const express = require('express')
 const userRouter = express.Router()
-const userModelValidate = require('../validators/user.validator')
+const userModelValidate = require('../validators/userDetail.validator')
 
 const {
     getUser,
