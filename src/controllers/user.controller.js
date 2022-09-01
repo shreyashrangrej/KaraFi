@@ -1,3 +1,6 @@
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+
 const userSchema = require('../models/user.model')
 
 const userSignup = async (req, res, next) => {
@@ -8,7 +11,7 @@ const userSignup = async (req, res, next) => {
     } = req.body;
 
     try {
-        let user = await User.findOne({
+        let user = await userSchema.findOne({
             email
         });
         if (user) {
@@ -17,7 +20,7 @@ const userSignup = async (req, res, next) => {
             });
         }
 
-        user = new User({
+        user = new userSchema({
             username,
             email,
             password
