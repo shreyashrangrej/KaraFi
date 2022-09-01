@@ -26,14 +26,15 @@ const getUserById = async (req, res, next) => {
 };
 
 const createUser = async (req, res, next) => {
-    const { firstName, lastName, email, gender, dateOfBirth, phoneNumber } = req.body;
+    const { firstName, lastName, email, gender, dateOfBirth, phoneNumber, user } = req.body;
     const createdUser = new userSchema({
         firstName,
         lastName,
         email,
         gender,
         dateOfBirth,
-        phoneNumber
+        phoneNumber,
+        user
     });
 
     try {

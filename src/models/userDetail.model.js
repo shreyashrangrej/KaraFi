@@ -37,11 +37,12 @@ const userModel = new mongoose.Schema({
     address: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Address'
-    }
+    },
+    
 })
 
 userModel.set("timestamps", true);
 
-const Users = new mongoose.model('UserDetails', userModel)
+const Users = new mongoose.model('userdetail', userModel)
 
 module.exports = Users;
