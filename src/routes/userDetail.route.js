@@ -1,6 +1,6 @@
 const express = require('express')
-const userRouter = express.Router()
-const userModelValidate = require('../validators/userDetail.validator')
+const userDetailRouter = express.Router()
+const userDetailModelValidate = require('../validators/userDetail.validator')
 
 const {
     getUser,
@@ -11,16 +11,16 @@ const {
     getUserPopulate
 } = require('../controllers/userDetail.controller')
 
-userRouter.get('/users', getUser)
+userDetailRouter.get('/users', getUser)
 
-userRouter.get('/user/:id', getUserById)
+userDetailRouter.get('/user/:id', getUserById)
 
-userRouter.post('/user', userModelValidate, createUser) 
+userDetailRouter.post('/user', userDetailModelValidate, createUser) 
 
-userRouter.patch('/user/:id', userModelValidate, updateUser) 
+userDetailRouter.patch('/user/:id', userDetailModelValidate, updateUser) 
 
-userRouter.delete('/user/:id', deleteUser)
+userDetailRouter.delete('/user/:id', deleteUser)
 
-userRouter.get('/user/:id/:field', getUserPopulate )
+userDetailRouter.get('/user/:id/:field', getUserPopulate )
 
-module.exports = userRouter;
+module.exports = userDetailRouter;
