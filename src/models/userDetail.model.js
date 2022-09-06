@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 
 const userDetailModel = new mongoose.Schema({
     firstName: {
@@ -41,8 +41,8 @@ const userDetailModel = new mongoose.Schema({
     
 })
 
-userDetailModel.set("timestamps", true);
+userDetailModel.set('timestamps', true)
 
-const Users = new mongoose.model('userdetail', userDetailModel)
+const UserDetail = new mongoose.model('userdetail', userDetailModel)
 
-module.exports = Users;
+module.exports = UserDetail;
