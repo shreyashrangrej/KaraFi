@@ -23,6 +23,9 @@ app.use('/api', userDetailRoutes)
 
 app.use('/api', addressRoutes)
 
+require('./authentication/routes/auth.routes')(app);
+require('./authentication/routes/user.routes')(app);
+
 app.use((req, res, next) => {
     res.status(404);
     res.send({
