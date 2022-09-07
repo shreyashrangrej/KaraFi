@@ -22,7 +22,7 @@ const userModel = new mongoose.Schema({
     roles: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Role"
+            ref: "role"
         }
     ]
 })
