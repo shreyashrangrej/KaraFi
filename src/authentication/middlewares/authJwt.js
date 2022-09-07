@@ -1,11 +1,10 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config/auth.config');
-const db = require('../models');
-const User = db.user;
-const Role = db.role;
+const User = require('../models/user.model')
+const Role = require('../models/role.model')
 
 verifyToken = (req, res, next) => {
-    let token = req.headers['authorization'].substring("Bearer ".length);
+    let token = req.headers['authorization'].replace('Bearer ', '');
     if (!token) {
         return res.status(403).send({ message: 'No token provided!' });
     }
@@ -18,8 +17,8 @@ verifyToken = (req, res, next) => {
     });
 };
 
-isAdmin = (req, res, next) => {
-    User.findById(req.userId).exec((err, user) => {
+isAdmin = async (req, res, next) => {
+    await User.findById(req.userId).exec((err, user) => {
         if (err) {
             res.status(500).send({ message: err });
             return;
@@ -46,8 +45,8 @@ isAdmin = (req, res, next) => {
     });
 };
 
-isModerator = (req, res, next) => {
-    User.findById(req.userId).exec((err, user) => {
+isModerator = async (req, res, next) => {
+    await User.findById(req.userId).exec((err, user) => {
         if (err) {
             res.status(500).send({ message: err });
             return;
