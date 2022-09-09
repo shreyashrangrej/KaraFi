@@ -1,5 +1,10 @@
-const { validationResult } = require('express-validator');
-const userSchema = require('../models/userDetail.model');
+const { validationResult } = require('express-validator')
+const userSchema = require('../models/userDetail.model')
+
+const {
+    uploadToCloudinary,
+    removeFromCloudinary,
+  } = require('../util/cloudinary')
 
 const getUser = async (req, res, next) => {
     try {
@@ -133,11 +138,21 @@ const getUserPopulate = async (req, res, next) => {
     res.json({ user: user });
 };
 
+const createUserImage = async (req, res, next) => {
+ 
+};
+
+const deleteUserImage = async (req, res, next) => {
+
+};
+
 module.exports = {
     getUser,
     getUserById,
     createUser,
     updateUser,
     deleteUser,
-    getUserPopulate
+    getUserPopulate,
+    createUserImage,
+    deleteUserImage
 };
