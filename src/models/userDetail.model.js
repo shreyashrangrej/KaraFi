@@ -38,6 +38,15 @@ const userDetailModel = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Address'
     },
+
+    publicId: {
+        type: String
+    },
+
+    imageUrl: {
+        type: String,
+        required: false
+    }
     
 })
 
