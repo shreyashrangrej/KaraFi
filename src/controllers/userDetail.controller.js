@@ -141,7 +141,7 @@ const getUserPopulate = async (req, res, next) => {
 const createUserImage = async (req, res, next) => {
     try {
         const data = await uploadToCloudinary(req.file.path, 'user-images')
-        const savedImg = await User.updateOne(
+        const savedImg = await userSchema.updateOne(
             { _id: req.params.id },
             {
                 $set: {
@@ -150,7 +150,7 @@ const createUserImage = async (req, res, next) => {
                 },
             }
         );
-        res.status(200).send('user image uploaded with success!')
+        res.status(200).send('User image uploaded with success!')
     } catch (error) {
         res.status(400).send(error);
     }

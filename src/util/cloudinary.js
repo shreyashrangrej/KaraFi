@@ -5,17 +5,17 @@ cloudinary.config({
     api_secret: process.env.API_SECRET
 })
 
-uploadToCloudinary = (path, folder) => {
+const uploadToCloudinary = (path, folder) => {
     return cloudinary.v2.uploader.upload(path, {
         folder
     }).then((data) => {
-        return { url: data.url, publicId: data.publicId };
+        return { url: data.url, public_Id: data.public_Id };
     }).catch((error) => {
         console.log(error)
     })
 }
 
-removeFromCloudinary = async (publicId) => {
+const removeFromCloudinary = async (publicId) => {
     await cloudinary.v2.uploader.destroy(publicId, function (error, result) {
         console.log(result, error)
     })
