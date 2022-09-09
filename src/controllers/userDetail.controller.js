@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator')
-const userSchema = require('../models/userDetail.model')
+const userSchema = require('../models/userDetail.model');
+const { use } = require('../routes/userDetail.route');
 
 const {
     uploadToCloudinary,
@@ -139,28 +140,38 @@ const getUserPopulate = async (req, res, next) => {
 };
 
 const createUserImage = async (req, res, next) => {
+    const userId = req.params.id;
+    let user
+    let data
     try {
-        const data = await uploadToCloudinary(req.file.path, 'user-images')
-        await userSchema.updateOne(
-            { _id: req.params.id },
-            {
-                $set: {
-                    imageUrl: data.url,
-                    publicId: data.public_id,
-                },
+        user = await userSchema.findById(userId);
+        if (user) {
+            try {
+                if(user.publicId){
+                    const publicId = user.publicId;
+                    await removeFromCloudinary(publicId);
+                }
+                data = await uploadToCloudinary(req.file.path, 'user-images')
+                user.imageUrl = data.url;
+                user.publicId = data.public_id;
+                await user.save()
+            } catch (error) {
+                res.status(422).json({ Error: "Could not upload image to cloudinary." });
+                return next();
             }
-        );
-        res.status(200).send('User image uploaded with success!')
+        } else {
+            res.status(422).json({ Error: "Could not find the user for provided ID: " + userId });
+        }
     } catch (error) {
-        console.log(error)
-        res.status(404).json({ Error: "Could not upload image. Please check logs for details." })
+        res.status(422).json({ Error: "Could not find the user for provided ID: " + userId });
         return next();
     }
+    res.status(200).json({ user: user });
 };
 
 const deleteUserImage = async (req, res, next) => {
     try {
-        const user = await User.findOne({ _id: req.params.id });
+        const user = await userSchema.findOne({ _id: req.params.id });
         const publicId = user.publicId;
         await removeFromCloudinary(publicId);
         await userSchema.updateOne(

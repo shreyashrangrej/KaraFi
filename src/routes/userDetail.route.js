@@ -26,7 +26,7 @@ userDetailRouter.delete('/user/:id', deleteUser)
 
 userDetailRouter.get('/user/:id/:field', getUserPopulate)
 
-userDetailRouter.post('/user/image/:id', upload.single("userImage"), createUserImage)
+userDetailRouter.post('/user/image/:id', upload.single('userImage'), createUserImage)
 
 userDetailRouter.delete('/user/image/:id', deleteUserImage)
 
