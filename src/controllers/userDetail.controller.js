@@ -4,7 +4,7 @@ const userSchema = require('../models/userDetail.model')
 const {
     uploadToCloudinary,
     removeFromCloudinary,
-  } = require('../util/cloudinary')
+} = require('../util/cloudinary')
 
 const getUser = async (req, res, next) => {
     try {
@@ -27,7 +27,7 @@ const getUserById = async (req, res, next) => {
     if (!user) {
         return res.status(404).json({ Error: "Could not find the user for provided ID: " + userId });
     }
-    res.json({ user: user});
+    res.json({ user: user });
 };
 
 const createUser = async (req, res, next) => {
@@ -139,11 +139,41 @@ const getUserPopulate = async (req, res, next) => {
 };
 
 const createUserImage = async (req, res, next) => {
- 
+    try {
+        const data = await uploadToCloudinary(req.file.path, 'user-images')
+        const savedImg = await User.updateOne(
+            { _id: req.params.id },
+            {
+                $set: {
+                    imageUrl: data.url,
+                    publicId: data.public_id,
+                },
+            }
+        );
+        res.status(200).send('user image uploaded with success!')
+    } catch (error) {
+        res.status(400).send(error);
+    }
 };
 
 const deleteUserImage = async (req, res, next) => {
-
+    try {
+        const user = await User.findOne({ _id: req.params.id });
+        const publicId = user.publicId;
+        await removeFromCloudinary(publicId);
+        const deleteImg = await User.updateOne(
+            { _id: req.params.id },
+            {
+                $set: {
+                    imageUrl: "",
+                    publicId: "",
+                },
+            }
+        );
+        res.status(200).send('User image deleted with success!');
+    } catch (error) {
+        res.status(400).send(error);
+    }
 };
 
 module.exports = {
