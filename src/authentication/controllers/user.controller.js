@@ -6,10 +6,10 @@ exports.userBoard = (req, res) => {
     res.status(200).send("User Content.");
 };
 
-exports.adminBoard = (req, res) => {
-    res.status(200).send("Admin Content.");
+exports.companyAdminBoard = (req, res) => {
+    res.status(200).send("Company Admin Content.");
 };
 
-exports.moderatorBoard = (req, res) => {
-    res.status(200).send("Moderator Content.");
+exports.projectManager = (req, res) => {
+    res.status(200).send("Project Manager Content.");
 };

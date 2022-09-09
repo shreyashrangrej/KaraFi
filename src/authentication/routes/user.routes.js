@@ -16,15 +16,15 @@ userRouter.get("/test/all", controller.allAccess);
 userRouter.get("/test/user", [authJwt.verifyToken], controller.userBoard);
 
 userRouter.get(
-    "/test/mod",
-    [authJwt.verifyToken, authJwt.isModerator],
-    controller.moderatorBoard
+    "/test/projectManager",
+    [authJwt.verifyToken, authJwt.isProjectManager],
+    controller.projectManager
 );
 
 userRouter.get(
     "/test/admin",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
+    [authJwt.verifyToken, authJwt.isCompanyAdmin],
+    controller.companyAdminBoard
 );
 
 module.exports = userRouter;

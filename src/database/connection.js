@@ -19,28 +19,28 @@ function initial() {
     Role.estimatedDocumentCount((err, count) => {
         if (!err && count === 0) {
             new Role({
+                roleName: 'companyAdmin'
+            }).save(err => {
+                if (err) {
+                    console.log('error', err);
+                }
+                console.log("Added 'companyAdmin' to roles collection.");
+            });
+            new Role({
+                roleName: 'projectManager'
+            }).save(err => {
+                if (err) {
+                    console.log('error', err);
+                }
+                console.log("Added 'projectManager' to roles collection.");
+            });
+            new Role({
                 roleName: 'user'
             }).save(err => {
                 if (err) {
                     console.log('error', err);
                 }
                 console.log("Added 'user' to roles collection.");
-            });
-            new Role({
-                roleName: 'moderator'
-            }).save(err => {
-                if (err) {
-                    console.log('error', err);
-                }
-                console.log("Added 'moderator' to roles collection.");
-            });
-            new Role({
-                roleName: 'admin'
-            }).save(err => {
-                if (err) {
-                    console.log('error', err);
-                }
-                console.log("Added 'admin' to roles collection.");
             });
         }
     });

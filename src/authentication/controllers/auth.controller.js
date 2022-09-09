@@ -21,7 +21,7 @@ exports.signup = (req, res) => {
         if (req.body.roles) {
             Role.find(
                 {
-                    name: { $in: req.body.roles }
+                    roleName: { $in: req.body.roles }
                 },
                 (err, roles) => {
                     if (err) {
@@ -39,7 +39,7 @@ exports.signup = (req, res) => {
                 }
             );
         } else {
-            Role.findOne({ name: "user" }, (err, role) => {
+            Role.findOne({ roleName: "user" }, (err, role) => {
                 if (err) {
                     res.status(500).send({ message: err });
                     return;

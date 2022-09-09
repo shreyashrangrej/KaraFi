@@ -17,7 +17,7 @@ verifyToken = (req, res, next) => {
     });
 };
 
-isAdmin = async (req, res, next) => {
+isCompanyAdmin = async (req, res, next) => {
     await User.findById(req.userId).exec((err, user) => {
         if (err) {
             res.status(500).send({ message: err });
@@ -45,7 +45,7 @@ isAdmin = async (req, res, next) => {
     });
 };
 
-isModerator = async (req, res, next) => {
+isProjectManager = async (req, res, next) => {
     await User.findById(req.userId).exec((err, user) => {
         if (err) {
             res.status(500).send({ message: err });
@@ -75,7 +75,7 @@ isModerator = async (req, res, next) => {
 
 const authJwt = {
     verifyToken,
-    isAdmin,
-    isModerator
+    isCompanyAdmin,
+    isProjectManager
 };
 module.exports = authJwt;
