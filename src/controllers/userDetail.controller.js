@@ -146,7 +146,7 @@ const createUserImage = async (req, res, next) => {
             {
                 $set: {
                     imageUrl: data.url,
-                    publicId: data.public_Id,
+                    publicId: data.public_id,
                 },
             }
         );

@@ -9,7 +9,7 @@ const uploadToCloudinary = (path, folder) => {
     return cloudinary.v2.uploader.upload(path, {
         folder
     }).then((data) => {
-        return { url: data.url, public_Id: data.public_Id };
+        return { url: data.url, public_id: data.public_id };
     }).catch((error) => {
         console.log(error)
     })
