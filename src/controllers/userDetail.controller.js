@@ -141,18 +141,20 @@ const getUserPopulate = async (req, res, next) => {
 const createUserImage = async (req, res, next) => {
     try {
         const data = await uploadToCloudinary(req.file.path, 'user-images')
-        const savedImg = await userSchema.updateOne(
+        await userSchema.updateOne(
             { _id: req.params.id },
             {
                 $set: {
                     imageUrl: data.url,
-                    publicId: data.public_id,
+                    publicId: data.public_Id,
                 },
             }
         );
         res.status(200).send('User image uploaded with success!')
     } catch (error) {
-        res.status(400).send(error);
+        console.log(error)
+        res.status(404).json({ Error: "Could not upload image. Please check logs for details." })
+        return next();
     }
 };
 
@@ -161,7 +163,7 @@ const deleteUserImage = async (req, res, next) => {
         const user = await User.findOne({ _id: req.params.id });
         const publicId = user.publicId;
         await removeFromCloudinary(publicId);
-        const deleteImg = await User.updateOne(
+        await userSchema.updateOne(
             { _id: req.params.id },
             {
                 $set: {
@@ -172,7 +174,9 @@ const deleteUserImage = async (req, res, next) => {
         );
         res.status(200).send('User image deleted with success!');
     } catch (error) {
-        res.status(400).send(error);
+        console.log(error)
+        res.status(404).json({ Error: "Could not delete image. Please check logs for details." })
+        return next();
     }
 };
 
