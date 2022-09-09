@@ -22,7 +22,7 @@ userRouter.get(
 );
 
 userRouter.get(
-    "/test/admin",
+    "/test/companyAdmin",
     [authJwt.verifyToken, authJwt.isCompanyAdmin],
     controller.companyAdminBoard
 );

@@ -33,12 +33,12 @@ isCompanyAdmin = async (req, res, next) => {
                     return;
                 }
                 for (let i = 0; i < roles.length; i++) {
-                    if (roles[i].roleName === 'admin') {
+                    if (roles[i].roleName === 'companyAdmin') {
                         next();
                         return;
                     }
                 }
-                res.status(403).send({ message: "Require Admin Role!" });
+                res.status(403).send({ message: 'Require Company Admin Role!' });
                 return;
             }
         );
@@ -61,12 +61,12 @@ isProjectManager = async (req, res, next) => {
                     return;
                 }
                 for (let i = 0; i < roles.length; i++) {
-                    if (roles[i].roleName === 'moderator') {
+                    if (roles[i].roleName === 'projectManager') {
                         next();
                         return;
                     }
                 }
-                res.status(403).send({ message: 'Require Moderator Role!' });
+                res.status(403).send({ message: 'Require Project Manager Role!' });
                 return;
             }
         );
