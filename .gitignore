@@ -3,3 +3,4 @@ package-lock.json
 /node_modules
 /.vscode
 /client/karafi-nextjs/node_modules
+/client/karafi-nextjs/.next
