@@ -29,3 +29,6 @@ server:
       configuration:
         component: com.karafi.karafisapui5
         ui5Theme: sap_horizon
+framework:
+  name: SAPUI5
+  version: "1.106.0"
