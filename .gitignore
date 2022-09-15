@@ -2,5 +2,17 @@
 package-lock.json
 /node_modules
 /.vscode
+
 /client/karafi-nextjs/node_modules
 /client/karafi-nextjs/.next
+
+/client/karafi-sapui5/node_modules/
+/client/karafi-sapui5/dist/
+/client/karafi-sapui5/.scp/
+/client/karafi-sapui5/.env
+/client/karafi-sapui5/Makefile*.mta
+/client/karafi-sapui5/mta_archives
+/client/karafi-sapui5/mta-*
+/client/karafi-sapui5/resources
+/client/karafi-sapui5/archive.zip
+/client/karafi-sapui5/.*_mta_build_tmp
