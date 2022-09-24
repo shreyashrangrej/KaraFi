@@ -2,7 +2,8 @@ const express = require('express')
 const authRouter = express.Router()
 
 const { verifySignUp } = require('../middlewares')
-const controller = require('../controllers/auth.controller')
+const { signup, login } = require('../controllers/auth.controller')
+const userSingupValidate = require('../validators/userSignup.validator')
 
 authRouter.use(function (req, res, next) {
     res.header(
@@ -16,10 +17,11 @@ authRouter.post(
     "/auth/signup",
     [
         verifySignUp.checkDuplicateUsernameOrEmail,
-        verifySignUp.checkRolesExisted
+        verifySignUp.checkRolesExisted,
+        userSingupValidate
     ],
-    controller.signup
+    signup
 );
-authRouter.post("/auth/login", controller.login);
+authRouter.post("/auth/login", login);
 
 module.exports = authRouter;

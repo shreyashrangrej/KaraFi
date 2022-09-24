@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator')
 const userSchema = require('../models/userDetail.model');
-const { use } = require('../routes/userDetail.route');
+// const { user } = require('../routes/userDetail.route');
 
 const {
     uploadToCloudinary,

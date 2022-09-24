@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator')
 const config = require('../config/auth.config')
 const db = require('../models')
 
@@ -7,65 +8,79 @@ const Role = db.role;
 var jwt = require('jsonwebtoken')
 var bcrypt = require('bcryptjs')
 
-exports.signup = (req, res) => {
+const signup = async (req, res, next) => {
+
     const user = new User({
         username: req.body.username,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8)
     });
-    user.save((err, user) => {
-        if (err) {
-            res.status(500).send({ message: err });
-            return;
+
+    try{
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({
+                success: false,
+                errors: errors.array(),
+            });
         }
-        if (req.body.roles) {
-            Role.find(
-                {
-                    roleName: { $in: req.body.roles }
-                },
-                (err, roles) => {
+        await user.save((err, user) => {
+            if (err) {
+                res.status(500).send({ message: err });
+                return next();
+            }
+            if (req.body.roles) {
+                Role.find(
+                    {
+                        roleName: { $in: req.body.roles }
+                    },
+                    (err, roles) => {
+                        if (err) {
+                            res.status(500).send({ message: err });
+                            return next();
+                        }
+                        user.roles = roles.map(role => role._id);
+                        user.save(err => {
+                            if (err) {
+                                res.status(500).send({ message: err });
+                                return next();
+                            }
+                            res.send({ message: "User was registered successfully!" });
+                        });
+                    }
+                );
+            } else {
+                Role.findOne({ roleName: "user" }, (err, role) => {
                     if (err) {
                         res.status(500).send({ message: err });
-                        return;
+                        return next();
                     }
-                    user.roles = roles.map(role => role._id);
+                    user.roles = [role._id];
                     user.save(err => {
                         if (err) {
                             res.status(500).send({ message: err });
-                            return;
+                            return next();
                         }
                         res.send({ message: "User was registered successfully!" });
                     });
-                }
-            );
-        } else {
-            Role.findOne({ roleName: "user" }, (err, role) => {
-                if (err) {
-                    res.status(500).send({ message: err });
-                    return;
-                }
-                user.roles = [role._id];
-                user.save(err => {
-                    if (err) {
-                        res.status(500).send({ message: err });
-                        return;
-                    }
-                    res.send({ message: "User was registered successfully!" });
                 });
-            });
-        }
-    });
-};
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ Error: "Something went wrong pleas try again." });
+        return next();
+    }
+}
 
-exports.login = (req, res) => {
-    User.findOne({
+const login = async (req, res, next) => {
+    await User.findOne({
         username: req.body.username
     })
         .populate("roles", "-__v")
         .exec((err, user) => {
             if (err) {
                 res.status(500).send({ message: err });
-                return;
+                return next();
             }
             if (!user) {
                 return res.status(404).send({ message: "User Not found." });
@@ -81,7 +96,7 @@ exports.login = (req, res) => {
                 });
             }
             var token = jwt.sign({ id: user.id }, config.secret, {
-                expiresIn: 86400 // 24 hours
+                expiresIn: 86400
             });
             var authorities = [];
             for (let i = 0; i < user.roles.length; i++) {
@@ -95,4 +110,9 @@ exports.login = (req, res) => {
                 accessToken: token
             });
         });
-};
+}
+
+module.exports = {
+    signup,
+    login
+}
