@@ -4,6 +4,7 @@ const authRouter = express.Router()
 const { verifySignUp } = require('../middlewares')
 const { signup, login } = require('../controllers/auth.controller')
 const userSingupValidate = require('../validators/userSignup.validator')
+const userLoginValidate = require('../validators/userLogin.validator')
 
 authRouter.use(function (req, res, next) {
     res.header(
@@ -22,6 +23,6 @@ authRouter.post(
     ],
     signup
 );
-authRouter.post("/auth/login", login);
+authRouter.post("/auth/login", userLoginValidate, login);
 
 module.exports = authRouter;
