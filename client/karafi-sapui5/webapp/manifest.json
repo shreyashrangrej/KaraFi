@@ -94,20 +94,20 @@
       },
       "routes": [
         {
-          "name": "Routeapp",
-          "pattern": ":?query:",
+          "name": "HomeRoute",
+          "pattern": "",
           "target": [
-            "Targetapp"
+            "HomeTarget"
           ]
         }
       ],
       "targets": {
-        "Targetapp": {
+        "HomeTarget": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
           "viewId": "app",
-          "viewName": "app"
+          "viewName": "home"
         }
       }
     },
