@@ -136,7 +136,7 @@ const getUserPopulate = async (req, res, next) => {
     if (!user) {
         return res.status(404).json({ Error: "Could not find the user for provided ID: " + userId });
     }
-    res.json({ user: user });
+    res.status(200).json({ user: user });
 };
 
 const createUserImage = async (req, res, next) => {

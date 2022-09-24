@@ -134,12 +134,13 @@ const getAddressPopulate = async (req, res, next) => {
         address = await addressSchema.findById(addressId).populate(populateField);
     } catch (err) {
         res.status(404).json({ Error: "Something went wrong, could not find address: " + addressId });
+        console.log(err)
         return next();
     }
     if (!address) {
         return res.status(404).json({ Error: "Could not find the address for provided ID: " + addressId });
     }
-    res.json({ address: address });
+    res.status(200).json({ address: address });
 };
 
 module.exports = {
