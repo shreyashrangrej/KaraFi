@@ -61,7 +61,7 @@ isProjectManager = async (req, res, next) => {
                     return;
                 }
                 for (let i = 0; i < roles.length; i++) {
-                    if (roles[i].roleName === 'projectManager') {
+                    if (roles[i].roleName === 'projectManager' || roles[i].roleName === 'companyAdmin') {
                         next();
                         return;
                     }
