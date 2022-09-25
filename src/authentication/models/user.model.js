@@ -24,7 +24,12 @@ const userModel = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "role"
         }
-    ]
+    ],
+
+    userDetail: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'userdetail'
+    }
 })
 
 userModel.set('timestamps', true)

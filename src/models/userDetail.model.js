@@ -46,6 +46,11 @@ const userDetailModel = new mongoose.Schema({
     imageUrl: {
         type: String,
         required: false
+    },
+
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
     }
     
 })

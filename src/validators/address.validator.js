@@ -43,7 +43,7 @@ const addressModelValidate = [
         .isString()
         .withMessage('Zip Code should be string.'),
 
-    body('user')
+    body('userDetail')
         .exists({ checkFalsy: true })
         .withMessage(' User is required.')
         .isString()

@@ -28,7 +28,7 @@ const getAddressById = async (req, res, next) => {
 };
 
 const createAddress = async (req, res, next) => {
-    const { addressLine1, addressLine2, country, state, district, city, zipCode, user } = req.body;
+    const { addressLine1, addressLine2, country, state, district, city, zipCode, userDetail } = req.body;
     const createdAddress = new addressSchema({
         addressLine1,
         addressLine2,
@@ -37,7 +37,7 @@ const createAddress = async (req, res, next) => {
         district,
         city,
         zipCode,
-        user,
+        userDetail,
     });
 
     try {
@@ -49,9 +49,9 @@ const createAddress = async (req, res, next) => {
             });
         }
         try {
-            const findUser = await userSchema.findById(user)
+            const findUser = await userSchema.findById(userDetail)
             if (!findUser) {
-                return res.status(404).json({ error: 'Could not find user for provided user ID: ' + user })
+                return res.status(404).json({ error: 'Could not find user for provided user ID: ' + userDetail })
             }
             findUser.address = createdAddress.id
             await createdAddress.save();

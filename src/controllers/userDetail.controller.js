@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator')
 const userSchema = require('../models/userDetail.model');
 // const { user } = require('../routes/userDetail.route');
+const authUser = require('../authentication/models/user.model')
 
 const {
     uploadToCloudinary,
@@ -51,12 +52,24 @@ const createUser = async (req, res, next) => {
                 errors: errors.array(),
             });
         }
-        await createdUser.save();
+        try {
+            const findAuthUser = await authUser.findById(user)
+            if (!findAuthUser) {
+                return res.status(404).json({ error: 'Could not find user for provided user ID: ' + user })
+            }
+            findAuthUser.userDetail = createdUser.id;
+            await createdUser.save()
+            await findAuthUser.save()
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({ error: 'Something went wrong please try again or check logs.' })
+            return next()
+        }
     } catch (err) {
         if (err.code === 11000) {
             res.status(422).json({ Error: err.message });
         } else {
-            res.status(500).json({ Error: "Creating User failed, please try again." });
+            res.status(500).json({ Error: 'Creating User failed, please try again.' });
         }
         return next();
     }
