@@ -126,7 +126,17 @@ const login = async (req, res, next) => {
     }
 }
 
+const getAllUsers = async (req, res, next) => {
+    try {
+        const user = await User.find()
+        res.status(200).send({ users: user })
+    } catch (err) {
+        return res.status(404).json({ Error: "Something went wrong, could not find users." });
+    }
+}
+
 module.exports = {
     signup,
-    login
+    login,
+    getAllUsers
 }

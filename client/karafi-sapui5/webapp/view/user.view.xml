@@ -1,0 +1,36 @@
+<mvc:View controllerName="com.karafi.karafisapui5.controller.user" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:t="sap.ui.table" xmlns:u="sap.ui.unified" xmlns:c="sap.ui.core">
+    <App id="user">
+        <Page id="page" title="{i18n>title}" showHeader="false">
+            <content>
+                <t:Table rows = "{userModel>/users}">
+                    <t:columns>
+                        <t:Column>
+                            <Label text="User Name" />
+                            <t:template>
+                                <Text text="{userModel>username}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column>
+                            <Label text="E-Mail" />
+                            <t:template>
+                                <Text text="{userModel>email}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column>
+                            <Label text="Roles" />
+                            <t:template>
+                                <Text text="{}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column>
+                            <Label text="User Detail" />
+                            <t:template>
+                                <Text text="{}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                    </t:columns>
+                </t:Table>
+            </content>
+        </Page>
+    </App>
+</mvc:View>

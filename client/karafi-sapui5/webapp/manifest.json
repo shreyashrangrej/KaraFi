@@ -16,14 +16,10 @@
       "toolsId": "2222123d-fab0-43bb-b77d-058f03063f8a"
     },
     "dataSources": {
-      "mainService": {
-        "uri": "/sap/opu/odata/",
-        "type": "OData",
-        "settings": {
-          "annotations": [],
-          "localUri": "localService/metadata.xml",
-          "odataVersion": "2.0"
-        }
+      "env": {
+        "uri": "model/api.json",
+        "type": "http",
+        "settings": {}
       }
     }
   },
@@ -69,10 +65,9 @@
           "bundleName": "com.karafi.karafisapui5.i18n.i18n"
         }
       },
-      "": {
-        "dataSource": "mainService",
-        "preload": true,
-        "settings": {}
+      "env": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/env.json"
       }
     },
     "resources": {
@@ -99,6 +94,13 @@
           "target": [
             "HomeTarget"
           ]
+        },
+        {
+          "name": "UserRoute",
+          "pattern": "manageUsers",
+          "target": [
+            "userTarget"
+          ]
         }
       ],
       "targets": {
@@ -106,8 +108,15 @@
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
-          "viewId": "app",
+          "viewId": "home",
           "viewName": "home"
+        },
+        "userTarget": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "user",
+          "viewName": "user"
         }
       }
     },

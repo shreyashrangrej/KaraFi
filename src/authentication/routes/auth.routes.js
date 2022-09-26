@@ -2,7 +2,7 @@ const express = require('express')
 const authRouter = express.Router()
 
 const { verifySignUp } = require('../middlewares')
-const { signup, login } = require('../controllers/auth.controller')
+const { signup, login, getAllUsers } = require('../controllers/auth.controller')
 const userSingupValidate = require('../validators/userSignup.validator')
 const userLoginValidate = require('../validators/userLogin.validator')
 
@@ -15,7 +15,7 @@ authRouter.use(function (req, res, next) {
 });
 
 authRouter.post(
-    "/auth/signup",
+    '/auth/signup',
     [
         verifySignUp.checkDuplicateUsernameOrEmail,
         verifySignUp.checkRolesExisted,
@@ -23,6 +23,9 @@ authRouter.post(
     ],
     signup
 );
-authRouter.post("/auth/login", userLoginValidate, login);
+
+authRouter.post('/auth/login', userLoginValidate, login)
+
+authRouter.get('/getAuthAll', getAllUsers)
 
 module.exports = authRouter;
