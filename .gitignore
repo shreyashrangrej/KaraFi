@@ -16,3 +16,4 @@ package-lock.json
 /client/karafi-sapui5/resources
 /client/karafi-sapui5/archive.zip
 /client/karafi-sapui5/.*_mta_build_tmp
+/client/karafi-sapui5/webapp/model/env.json
