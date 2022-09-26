@@ -1,0 +1,9 @@
+<mvc:View controllerName="com.karafi.karafisapui5.controller.home" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+    <App id="app">
+        <Page id="page" title="{i18n>title}" showHeader="false">
+            <content>
+                <Button text="Hello" />
+            </content>
+        </Page>
+    </App>
+</mvc:View>
