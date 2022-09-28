@@ -7,7 +7,7 @@ projectRouter.get('/projects', getProject)
 
 projectRouter.get('/project/:id', getProjectById)
 
-projectRouter.post('/project/:id', createProject)
+projectRouter.post('/project', createProject)
 
 projectRouter.patch('/project/:id', updateProject)
 

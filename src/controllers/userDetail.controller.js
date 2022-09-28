@@ -104,12 +104,9 @@ const updateUser = async (req, res, next) => {
             });
         }
         await user.save();
-    } catch (err) {
-        if (err.code === 11000) {
-            res.status(422).json({ Error: err.message });
-        } else {
-            res.status(500).json({ Error: "Updating User failed, please try again." });
-        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ Error: "Updating User failed, please try again or check logs." });
         return next();
     }
     res.status(200).json({ user: user });
