@@ -8,7 +8,8 @@ const cors = require('cors')
 const authRouter = require('./authentication/routes/auth.routes')
 const userRouter = require('./authentication/routes/user.routes')
 const userDetailRoutes = require('./routes/userDetail.route')
-const addressRoutes = require('./routes/address.route')
+const addressRoutes = require('./routes/address.route');
+const projectRouter = require('./routes/project.route');
 
 const app = express()
 const port = process.env.PORT || 3000;
@@ -28,6 +29,8 @@ app.use('/api', userRouter)
 app.use('/api', userDetailRoutes)
 
 app.use('/api', addressRoutes)
+
+app.use('/api', projectRouter)
 
 app.use((req, res, next) => {
     res.status(404);
