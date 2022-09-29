@@ -46,6 +46,25 @@ const userDetailModelValidate = [
             }
         }),
         
+    body('jobTitle')
+        .exists({ checkFalsy: true })
+        .withMessage("Job Title is required")
+        .isString()
+        .withMessage("Job Title should be string."),
+
+    body('nationality')
+        .isString()
+        .withMessage('Nationality should be string.'),
+
+    body('birthPlace')
+        .isString()
+        .withMessage('Birth Place should be string.'),
+
+    body('user')
+        .exists({ checkFalsy: true })
+        .withMessage('User is required.')
+        .isString()
+        .withMessage('User should be string.')
 ];
 
 module.exports = userDetailModelValidate;

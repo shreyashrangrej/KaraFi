@@ -1,6 +1,5 @@
 const { validationResult } = require('express-validator')
 const userSchema = require('../models/userDetail.model');
-// const { user } = require('../routes/userDetail.route');
 const authUser = require('../authentication/models/user.model')
 
 const {
@@ -33,7 +32,7 @@ const getUserById = async (req, res, next) => {
 };
 
 const createUser = async (req, res, next) => {
-    const { firstName, lastName, email, gender, dateOfBirth, phoneNumber, user } = req.body;
+    const { firstName, lastName, email, gender, dateOfBirth, phoneNumber, jobTitle, nationality, birthPlace ,user } = req.body;
     const createdUser = new userSchema({
         firstName,
         lastName,
@@ -41,6 +40,9 @@ const createUser = async (req, res, next) => {
         gender,
         dateOfBirth,
         phoneNumber,
+        jobTitle,
+        nationality,
+        birthPlace,
         user
     });
 
@@ -77,7 +79,7 @@ const createUser = async (req, res, next) => {
 };
 
 const updateUser = async (req, res, next) => {
-    const { firstName, lastName, email, gender, dateOfBirth, phoneNumber } = req.body;
+    const { firstName, lastName, email, gender, dateOfBirth, phoneNumber, jobTitle, nationality, birthPlace } = req.body;
     const userId = req.params.id;
 
     let user;
@@ -94,6 +96,9 @@ const updateUser = async (req, res, next) => {
     user.gender = gender;
     user.dateOfBirth = dateOfBirth;
     user.phoneNumber = phoneNumber;
+    user.jobTitle = jobTitle;
+    user.nationality = nationality;
+    user.birthPlace = birthPlace;
 
     try {
         const errors = validationResult(req);
