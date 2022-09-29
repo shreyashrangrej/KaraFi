@@ -66,14 +66,31 @@ const updateProject = async (req, res, next) => {
         await project.save()
     } catch (error) {
         console.log(error)
-        res.status(500).json({ Error: "Updating User failed, please try again or check logs." });
+        res.status(500).json({ Error: 'Updating project failed, please try again or check logs.' });
         return next();
     }
     res.status(200).json({ project: project });
 }
 
 const deleteProject = async (req, res, next) => {
-    return res.status(200).json({ Message: 'detele Projects' })
+    const projectId = req.params.id;
+
+    let project;
+    try {
+        project = await projectSchema.findById(projectId);
+    } catch (err) {
+        res.status(404).json({ error: 'Cannot find project with provided Id:' + projectId });
+        return next();
+    }
+
+    try {
+        await project.remove();
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ error: 'Something went wrong, could not delete project:' + userId });
+        return next();
+    }
+    res.status(200).json({ deletedProject: project });
 }
 
 module.exports = {
