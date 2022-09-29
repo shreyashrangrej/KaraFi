@@ -139,8 +139,8 @@ const deleteUser = async (req, res, next) => {
 
 const getUserPopulate = async (req, res, next) => {
     const userId = req.params.id;
-    const populateField = req.params.field;
-
+    const populateField = req.params.fields.split(",");
+    
     let user;
     try {
         user = await userSchema.findById(userId).populate(populateField);

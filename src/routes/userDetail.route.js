@@ -25,7 +25,7 @@ userDetailRouter.patch('/user/:id', [authJwt.verifyToken, authJwt.isCompanyAdmin
 
 userDetailRouter.delete('/user/:id', [authJwt.verifyToken, authJwt.isCompanyAdmin], deleteUser)
 
-userDetailRouter.get('/user/:id/:field', [authJwt.verifyToken, authJwt.isCompanyAdmin], getUserPopulate)
+userDetailRouter.get('/user/:id/:fields', [authJwt.verifyToken, authJwt.isCompanyAdmin], getUserPopulate)
 
 userDetailRouter.post('/user/image/:id', [authJwt.verifyToken, authJwt.isCompanyAdmin], upload.single('userImage'), createUserImage)
 
