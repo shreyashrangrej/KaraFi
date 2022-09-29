@@ -34,6 +34,19 @@ const userDetailModel = new mongoose.Schema({
         require: true,
     },
 
+    jobTitle: {
+        type: String,
+        require: true,
+    },
+
+    nationality: {
+        type: String,
+    },
+
+    birthPlace: {
+        type: String,
+    },
+
     address: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Address'
