@@ -11,6 +11,8 @@ const userDetailRoutes = require('./routes/userDetail.route')
 const addressRoutes = require('./routes/address.route');
 const projectRouter = require('./routes/project.route');
 
+const projectImport = require('./import/project.import');
+
 const app = express()
 const port = process.env.PORT || 3000;
 
@@ -31,6 +33,8 @@ app.use('/api', userDetailRoutes)
 app.use('/api', addressRoutes)
 
 app.use('/api', projectRouter)
+
+app.use('/api', projectImport)
 
 app.use((req, res, next) => {
     res.status(404);
