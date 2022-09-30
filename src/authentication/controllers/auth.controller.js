@@ -6,7 +6,7 @@ const User = db.user;
 const Role = db.role;
 
 var jwt = require('jsonwebtoken')
-var bcrypt = require('bcryptjs')
+var bcrypt = require('bcryptjs');
 
 const signup = async (req, res, next) => {
 
@@ -135,6 +135,68 @@ const getAllUsers = async (req, res, next) => {
     }
 }
 
+const updateUser = async (req, res, next) => {
+    const userId = req.params.id
+    let authUser
+
+    try {
+        authUser = await User.findById(userId)
+    } catch (error) {
+        console.log(error)
+        res.status(404).json({ Error: 'Could not find the user for provided ID: ' + userId })
+        return next()
+    }
+
+    try {
+        await authUser.save((err, user) => {
+            if (err) {
+                res.status(500).send({ message: err });
+                return next();
+            }
+            if (req.body.roles) {
+                Role.find(
+                    {
+                        roleName: { $in: req.body.roles }
+                    },
+                    (err, roles) => {
+                        if (err) {
+                            res.status(500).send({ message: err });
+                            return next();
+                        }
+                        user.roles = roles.map(role => role._id);
+                        user.save(err => {
+                            if (err) {
+                                res.status(500).send({ message: err });
+                                return next();
+                            }
+                            res.send({ authUser: authUser });
+                        });
+                    }
+                );
+            } else {
+                Role.findOne({ roleName: "user" }, (err, role) => {
+                    if (err) {
+                        res.status(500).send({ message: err });
+                        return next();
+                    }
+                    user.roles = [role._id];
+                    user.save(err => {
+                        if (err) {
+                            res.status(500).send({ message: err });
+                            return next();
+                        }
+                        res.send({ authUser: authUser });
+                    });
+                });
+            }
+        });
+    } catch(error) {
+        console.log(error)
+        res.status(500).json({ Error: "Something went wrong pleas try again, or check logs." });
+        return next();
+    }
+}
+
 const deleteUser = async (req, res, next) => {
     const userId = req.params.id
 
@@ -161,5 +223,6 @@ module.exports = {
     signup,
     login,
     getAllUsers,
+    updateUser,
     deleteUser
 }

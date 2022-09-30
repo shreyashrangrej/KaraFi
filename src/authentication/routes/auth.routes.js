@@ -2,7 +2,7 @@ const express = require('express')
 const authRouter = express.Router()
 
 const { verifySignUp, authJwt } = require('../middlewares')
-const { signup, login, getAllUsers,deleteUser } = require('../controllers/auth.controller')
+const { signup, login, getAllUsers,deleteUser, updateUser } = require('../controllers/auth.controller')
 const userSingupValidate = require('../validators/userSignup.validator')
 const userLoginValidate = require('../validators/userLogin.validator')
 
@@ -27,6 +27,8 @@ authRouter.post(
 authRouter.post('/auth/login', userLoginValidate, login)
 
 authRouter.get('/getAuthAll', getAllUsers)
+
+authRouter.patch('/auth/:id', [authJwt.verifyToken, authJwt.isCompanyAdmin], updateUser)
 
 authRouter.delete('/auth/:id', [authJwt.verifyToken, authJwt.isCompanyAdmin], deleteUser)
 
