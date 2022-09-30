@@ -135,8 +135,31 @@ const getAllUsers = async (req, res, next) => {
     }
 }
 
+const deleteUser = async (req, res, next) => {
+    const userId = req.params.id
+
+    let authUser
+    try {
+        authUser = await User.findById(userId);
+    } catch (error) {
+        console.log(error)
+        res.status(404).json({ error: 'Cannot find user with provided Id:' + userId });
+        return next();
+    }
+
+    try {
+        await authUser.remove();
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ error: 'Something went wrong, could not delete User:' + userId });
+        return next();
+    }
+    res.status(200).json({ deletedUser: authUser });
+}
+
 module.exports = {
     signup,
     login,
-    getAllUsers
+    getAllUsers,
+    deleteUser
 }
