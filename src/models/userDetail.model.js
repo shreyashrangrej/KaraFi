@@ -52,6 +52,20 @@ const userDetailModel = new mongoose.Schema({
         ref: 'Address'
     },
 
+    projectAsOwner: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'project'
+        }
+    ],
+
+    projectAsMember: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'project'
+        }
+    ],
+
     publicId: {
         type: String
     },
@@ -65,7 +79,7 @@ const userDetailModel = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     }
-    
+
 })
 
 userDetailModel.set('timestamps', true)

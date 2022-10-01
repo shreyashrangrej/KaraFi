@@ -26,8 +26,9 @@ const getProjectById = async (req, res, next) => {
 }
 
 const createProject = async (req, res, next) => {
-    const { projectTitle, projectDescription, startDate, endDate } = req.body
+    const { projectId, projectTitle, projectDescription, startDate, endDate } = req.body
     const createdProject = new projectSchema({
+        projectId,
         projectTitle,
         projectDescription,
         startDate,
@@ -45,18 +46,19 @@ const createProject = async (req, res, next) => {
 }
 
 const updateProject = async (req, res, next) => {
-    const { projectTitle, projectDescription, startDate, endDate } = req.body
-    const projectId = req.params.id
+    const { projectId, projectTitle, projectDescription, startDate, endDate } = req.body
+    const pId = req.params.id
 
     let project;
     try {
-        project = await projectSchema.findById(projectId)
+        project = await projectSchema.findById(pId)
     } catch (error) {
         console.log(error)
-        res.status(404).json({ Error: 'Could not find the project for provided ID: ' + project })
+        res.status(404).json({ Error: 'Could not find the project for provided ID: ' + pId })
         return next();
     }
 
+    project.projectId = projectId
     project.projectTitle = projectTitle
     project.projectDescription = projectDescription
     project.startDate = startDate
