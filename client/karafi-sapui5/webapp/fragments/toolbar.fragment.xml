@@ -1,0 +1,31 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <OverflowToolbar style="Clear">
+        <Button text="Create Record" press="onAddRecord" type="Accept" icon="sap-icon://add" />
+        <Button text="Delete Record" press="onDeleteRecord" type="Reject" icon="sap-icon://delete" />
+        <ToggleButton text="Validate Cells" enabled="true" press="onValidate" icon="sap-icon://activate" type="Emphasized" />
+        <SearchField width="300px" liveChange="onSearch"/>
+        <ToolbarSpacer/>
+        <Button text="Get Upload Template" press="onGetUploadTemplate" type="Transparent" />
+        <Button text="Upload Table" press="onUpload" type="Emphasized" icon="sap-icon://upload" />
+        <Button text="Download Table" press="onDownload" type="Emphasized" icon="sap-icon://download" />
+    </OverflowToolbar>
+    <OverflowToolbar style="Clear">
+        <Button text="About This Catagory" press="onAbout" icon="sap-icon://sys-help" />
+        <Button icon="sap-icon://decline" tooltip="Clear all sortings" press="clearAllSortings"/>
+        <Button text="Create Record" press="onCreateRecord" icon="sap-icon://create" type="Emphasized" />
+        <ToolbarSpacer />
+        <Label text="Table Edit Mode:" design="Bold" />
+        <Switch state="true" customTextOn="ED" customTextOff="NED" change="onEditSwitch">
+            <layoutData>
+                <FlexItemData growFactor="1" />
+            </layoutData>
+        </Switch>
+        <Label text="Table Select Mode:" design="Bold" />
+        <Select change="onSelectMode">
+            <core:Item text="MultiToggle" key="MultiToggle" />
+            <core:Item text="Single" key="Single" />
+            <core:Item text="None" key="None" />
+        </Select>
+    </OverflowToolbar>
+</core:FragmentDefinition>

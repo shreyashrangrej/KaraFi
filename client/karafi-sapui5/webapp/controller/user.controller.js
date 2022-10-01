@@ -30,6 +30,15 @@ sap.ui.define([
                         debugger;
                     }
                 });
-            }
+            },
+
+            onAddRecord: function () {
+                
+            },
+
+            onDeleteRecord: function () {
+
+            },
+
         });
     });
