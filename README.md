@@ -1,32 +1,76 @@
-<h1 align="center">KaraFi</h1>
-<p align="center"><i>An open source project management and employee portal API</i></p>
-<div align="center">
-  <a href="https://github.com/shreyashrangrej/karafi/stargazers"><img src="https://img.shields.io/github/stars/shreyashrangrej/karafi" alt="Stars Badge"/></a>
-<a href="https://github.com/shreyashrangrej/karafi/network/members"><img src="https://img.shields.io/github/forks/shreyashrangrej/karafi" alt="Forks Badge"/></a>
-<a href="https://github.com/shreyashrangrej/karafi/pulls"><img src="https://img.shields.io/github/issues-pr/shreyashrangrej/karafi" alt="Pull Requests Badge"/></a>
-<a href="https://github.com/shreyashrangrej/karafi/issues"><img src="https://img.shields.io/github/issues/shreyashrangrej/karafi" alt="Issues Badge"/></a>
-<a href="https://github.com/shreyashrangrej/karafi/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/shreyashrangrej/karafi?color=2b9348"></a>
-<a href="https://github.com/shreyashrangrej/karafi/blob/master/LICENSE"><img src="https://img.shields.io/github/license/shreyashrangrej/karafi?color=2b9348" alt="License Badge"/></a>
-</div>
-<br>
-<p align="center"><i>Loved the project? Please visit our <a href="https://github.com/shreyashrangrej/karafi">Website</a></i></p>
-<br>
-I started this project as an hobby decided to make it an open source project. Basically KaraFi is a backend REST API for managing projects for organizations.
+<h1 align="center">
+  ✨ KaraFi ✨
+</h1>
+<h3 align="center">
+  An Open Source Project Management API
+</h3>
 
-## Contents
-  - [Getting Started](#getting-started)
-  - [Technologies Used](#technologies-used-in-building-karafi)
+<p align="center">
+    <a href="https://nodejs.org/">
+        <img src="https://forthebadge.com/images/badges/made-with-javascript.svg" alt="made-with-nodejs">
+    </a>
+    <a href="https://github.com/shreyashrangrej">
+        <img src="https://forthebadge.com/images/badges/built-with-love.svg" alt="built-with-love">
+    </a> <br>
+    <img src="https://img.shields.io/github/license/shreyashrangrej/KaraFi?style=for-the-badge&logo=appveyor" alt="LICENSE">
+    <img src="https://img.shields.io/github/contributors/shreyashrangrej/KaraFi?style=for-the-badge&logo=appveyor" alt="Contributors">
+    <img src="https://img.shields.io/github/repo-size/shreyashrangrej/KaraFi?style=for-the-badge&logo=appveyor" alt="Repository Size"> <br>
+    <img src="https://img.shields.io/github/issues/shreyashrangrej/KaraFi?style=for-the-badge&logo=appveyor" alt="Issues">
+    <img src="https://img.shields.io/github/forks/shreyashrangrej/KaraFi?style=for-the-badge&logo=appveyor" alt="Forks">
+    <img src="https://img.shields.io/github/stars/shreyashrangrej/KaraFi?style=for-the-badge&logo=appveyor" alt="Stars">
+    <img src="https://img.shields.io/github/issues-pr/shreyashrangrej/KaraFi?style=for-the-badge&logo=appveyor" alt="Pulls">
+</p>
 
-## Getting Started
+<h3 align="center"> 
+    Ready to use method
+</h3>
 
-Getting Started here
+<p align="center">
+    I Started this side project as hobby. And would love to continue developing it over time. <br>
+    <a href="https://github.com/shreyashrangrej/KaraFi"> KaraFi </a> | 
+    <a href="https://github.com/shreyashrangrej/KaraFi/issues"> KaraFi Support </a>
+</p>
 
-## Technologies used in building KaraFi
+<h2 align="center"> 
+   ⇝ Requirements and Techonologies Used ⇜
+</h2>
 
-- [Express.js](Express.js)
-- [MongoDB](code-styled)
-- [Auth0](Auth0)
-- [Cloudinary](Cloudinary)
+<p align="center">
+    <a href="https://nodejs.org"> Node.js </a> |
+    <a href="https://www.mongodb.com"> MongoDB </a> |
+    <a href="https://cloudinary.com"> Cloudinary </a> | 
+</p>
+
+<h2 align="center"> 
+   ⇝ Install Locally Or On A VPS ⇜
+</h2>
+
+```console
+shreyashrangrej:~$ git clone https://github.com/shreyashrangrej/KaraFi
+shreyashrangrej:~$ cd karafi
+shreyashrangrej:~$ npm install
+```
+
+<h2 align="center"> 
+    ⇝ Rename <b>.env.example</b> to <b>.env</b> and edit it with your own Values ⇝
+</h2>
+
+```console
+DATABASE_URL = <MongoDB Database URL>
+PORT = <Port Number>
+
+CLOUD_NAME = <CLOUD_NAME>
+API_KEY = <API_KEY>
+API_SECRET = <API_SECRET>
+```
+
+<h2 align="center"> 
+   ⇝ Run Directly ⇜
+</h2>
+
+```console
+shreyashrangrej:~$ npm start
+```
 
 # Contribute
 
