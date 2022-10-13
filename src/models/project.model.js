@@ -17,16 +17,28 @@ const projectSchema = new mongoose.Schema({
         type: Date
     },
 
-    endDate: {
+    dueDate: {
         type: Date
     },
 
-    projectOwner: {
+    status: {
+        type: String
+    },
+
+    priority: {
+        type: String
+    },
+
+    numberOfTasks: {
+        type: String
+    },
+
+    projectCreator: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'userdetail'
     },
 
-    projectMember: [
+    projectOwner: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'userdetail'

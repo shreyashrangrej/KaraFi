@@ -52,14 +52,14 @@ const userDetailModel = new mongoose.Schema({
         ref: 'Address'
     },
 
-    projectAsOwner: [
+    createdProject: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'project'
         }
     ],
 
-    projectAsMember: [
+    ownerOfProject: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'project'

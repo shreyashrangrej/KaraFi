@@ -26,13 +26,18 @@ const getProjectById = async (req, res, next) => {
 }
 
 const createProject = async (req, res, next) => {
-    const { projectId, projectTitle, projectDescription, startDate, endDate } = req.body
+    const { projectId, projectTitle, projectDescription, startDate, dueDate, status, priority, numberOfTasks, projectCreator, projectOwner } = req.body
     const createdProject = new projectSchema({
         projectId,
         projectTitle,
         projectDescription,
         startDate,
-        endDate
+        dueDate,
+        status,
+        priority,
+        numberOfTasks,
+        projectCreator,
+        projectOwner
     })
 
     try {
@@ -46,7 +51,7 @@ const createProject = async (req, res, next) => {
 }
 
 const updateProject = async (req, res, next) => {
-    const { projectId, projectTitle, projectDescription, startDate, endDate } = req.body
+    const { projectId, projectTitle, projectDescription, startDate, dueDate, status, priority, numberOfTasks, projectCreator, projectOwner } = req.body
     const pId = req.params.id
 
     let project;
@@ -62,7 +67,12 @@ const updateProject = async (req, res, next) => {
     project.projectTitle = projectTitle
     project.projectDescription = projectDescription
     project.startDate = startDate
-    project.endDate = endDate
+    project.dueDate = dueDate
+    project.status = status
+    project.priority = priority
+    project.numberOfTasks = numberOfTasks
+    project.projectCreator = projectCreator
+    project.projectOwner = projectOwner
 
     try {
         await project.save()
