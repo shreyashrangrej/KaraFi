@@ -6,7 +6,7 @@ const { authJwt } = require('../authentication/middlewares')
 
 const {
     getUser,
-    getUserById,
+    getUserByEmail,
     createUser,
     updateUser,
     deleteUser,
@@ -17,7 +17,7 @@ const {
 
 userDetailRouter.get('/users', [authJwt.verifyToken, authJwt.isCompanyAdmin], getUser)
 
-userDetailRouter.get('/user/:id', [authJwt.verifyToken, authJwt.isCompanyAdmin], getUserById)
+userDetailRouter.get('/user/:id', [authJwt.verifyToken, authJwt.isCompanyAdmin], getUserByEmail)
 
 userDetailRouter.post('/user', [authJwt.verifyToken, authJwt.isCompanyAdmin], userDetailModelValidate, createUser) 
 

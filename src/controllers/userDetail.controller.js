@@ -16,23 +16,23 @@ const getUser = async (req, res, next) => {
     }
 };
 
-const getUserById = async (req, res, next) => {
-    const userId = req.params.id;
+const getUserByEmail = async (req, res, next) => {
+    const email = req.params.id;
     let user;
     try {
-        user = await userSchema.findById(userId);
+        user = await userSchema.findOne({ email: email });
     } catch (err) {
-        res.status(404).json({ Error: "Something went wrong, could not find user: " + userId });
+        res.status(404).json({ Error: "Something went wrong, could not find user: " + email });
         return next();
     }
     if (!user) {
-        return res.status(404).json({ Error: "Could not find the user for provided ID: " + userId });
+        return res.status(404).json({ Error: "Could not find the user for provided email: " + email });
     }
     res.json({ user: user });
 };
 
 const createUser = async (req, res, next) => {
-    const { firstName, lastName, email, gender, dateOfBirth, phoneNumber, jobTitle, nationality, birthPlace ,user } = req.body;
+    const { firstName, lastName, email, gender, dateOfBirth, phoneNumber, jobTitle, nationality, birthPlace, user } = req.body;
     const createdUser = new userSchema({
         firstName,
         lastName,
@@ -80,13 +80,13 @@ const createUser = async (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
     const { firstName, lastName, email, gender, dateOfBirth, phoneNumber, jobTitle, nationality, birthPlace } = req.body;
-    const userId = req.params.id;
+    const emailId = req.params.id;
 
     let user;
     try {
-        user = await userSchema.findById(userId);
+        user = await userSchema.findOne({ email: emailId });
     } catch (err) {
-        res.status(500).json({ Error: "Could not find the user for provided ID: " + userId });
+        res.status(500).json({ Error: "Could not find the user for provided ID: " + emailId });
         return next();
     }
 
@@ -118,32 +118,32 @@ const updateUser = async (req, res, next) => {
 };
 
 const deleteUser = async (req, res, next) => {
-    const userId = req.params.id;
+    const email = req.params.id;
 
     let user;
     try {
-        user = await userSchema.findById(userId);
+        user = await userSchema.findOne({ email: email });
     } catch (err) {
-        res.status(404).json({ error: "Cannot find user with provided Id:" + userId });
+        res.status(404).json({ error: "Cannot find user with provided Email:" + email });
         return next();
     }
 
     try {
         await user.remove();
     } catch (err) {
-        res.status(500).json({ error: "Something went wrong, could not delete user:" + userId });
+        res.status(500).json({ error: "Something went wrong, could not delete user:" + email });
         return next();
     }
     res.status(200).json({ deletedUser: user });
 };
 
 const getUserPopulate = async (req, res, next) => {
-    const userId = req.params.id;
+    const email = req.params.id;
     const populateField = req.params.fields.split(",");
-    
+
     let user;
     try {
-        user = await userSchema.findById(userId).populate(populateField);
+        user = await userSchema.findOne({ email: email }).populate(populateField);
     } catch (err) {
         res.status(404).json({ Error: "Something went wrong, could not find user: " + userId });
         return next();
@@ -155,14 +155,14 @@ const getUserPopulate = async (req, res, next) => {
 };
 
 const createUserImage = async (req, res, next) => {
-    const userId = req.params.id;
+    const email = req.params.id;
     let user
     let data
     try {
-        user = await userSchema.findById(userId);
+        user = await userSchema.findOne({ email: email });
         if (user) {
             try {
-                if(user.publicId){
+                if (user.publicId) {
                     const publicId = user.publicId;
                     await removeFromCloudinary(publicId);
                 }
@@ -208,7 +208,7 @@ const deleteUserImage = async (req, res, next) => {
 
 module.exports = {
     getUser,
-    getUserById,
+    getUserByEmail,
     createUser,
     updateUser,
     deleteUser,
