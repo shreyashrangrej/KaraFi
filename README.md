@@ -2,7 +2,7 @@
   ✨ KaraFi ✨
 </h1>
 <h3 align="center">
-  An Open Source Project Management API
+  An Aglie and Open Source Project Management API
 </h3>
 
 <p align="center">
