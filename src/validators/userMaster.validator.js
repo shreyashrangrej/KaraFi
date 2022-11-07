@@ -1,6 +1,6 @@
 const { body } = require("express-validator")
 
-const userDetailModelValidate = [
+const userMasterModelValidate = [
     body("firstName")
         .exists({ checkFalsy: true })
         .withMessage("First Name is Required.")
@@ -61,4 +61,4 @@ const userDetailModelValidate = [
         .withMessage('Birth Place should be string.'),
 ];
 
-module.exports = userDetailModelValidate;
+module.exports = userMasterModelValidate;

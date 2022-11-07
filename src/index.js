@@ -5,7 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
-const userDetailRoutes = require('./routes/userDetail.route')
+const userMasterRoutes = require('./routes/userMaster.route')
 const addressRoutes = require('./routes/address.route');
 const projectRouter = require('./routes/project.route');
 
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(bodyParser.json())
 
-app.use('/api', userDetailRoutes)
+app.use('/api', userMasterRoutes)
 
 app.use('/api', addressRoutes)
 

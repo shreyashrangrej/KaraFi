@@ -1,7 +1,7 @@
 const { validationResult } = require('express-validator');
 const addressSchema = require('../models/address.model');
 
-const userSchema = require('../models/userDetail.model');
+const userSchema = require('../models/userMaster.model');
 
 const getAddress = async (req, res, next) => {
     try {

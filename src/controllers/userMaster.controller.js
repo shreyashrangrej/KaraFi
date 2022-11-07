@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator')
-const userSchema = require('../models/userDetail.model');
+const userSchema = require('../models/userMaster.model');
 
 const {
     uploadToCloudinary,

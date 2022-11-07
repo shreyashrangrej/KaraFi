@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const userDetailModel = new mongoose.Schema({
+const userMasterModel = new mongoose.Schema({
     firstName: {
         type: String,
         required: true,
@@ -76,8 +76,8 @@ const userDetailModel = new mongoose.Schema({
     }
 })
 
-userDetailModel.set('timestamps', true)
+userMasterModel.set('timestamps', true)
 
-const UserDetail = new mongoose.model('userdetail', userDetailModel)
+const UserMaster = new mongoose.model('userMaster', userMasterModel)
 
-module.exports = UserDetail;
+module.exports = UserMaster;
