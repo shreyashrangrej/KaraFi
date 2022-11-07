@@ -1,6 +1,5 @@
 const { validationResult } = require('express-validator')
 const userSchema = require('../models/userDetail.model');
-const authUser = require('../authentication/models/user.model')
 
 const {
     uploadToCloudinary,
@@ -32,7 +31,7 @@ const getUserByEmail = async (req, res, next) => {
 };
 
 const createUser = async (req, res, next) => {
-    const { firstName, lastName, email, gender, dateOfBirth, phoneNumber, jobTitle, nationality, birthPlace, user } = req.body;
+    const { firstName, lastName, email, gender, dateOfBirth, phoneNumber, jobTitle, nationality, birthPlace } = req.body;
     const createdUser = new userSchema({
         firstName,
         lastName,
@@ -43,7 +42,6 @@ const createUser = async (req, res, next) => {
         jobTitle,
         nationality,
         birthPlace,
-        user
     });
 
     try {
@@ -55,13 +53,7 @@ const createUser = async (req, res, next) => {
             });
         }
         try {
-            const findAuthUser = await authUser.findById(user)
-            if (!findAuthUser) {
-                return res.status(404).json({ error: 'Could not find user for provided user ID: ' + user })
-            }
-            findAuthUser.userDetail = createdUser.id;
             await createdUser.save()
-            await findAuthUser.save()
         } catch (error) {
             console.log(error)
             res.status(500).json({ error: 'Something went wrong please try again or check logs.' })

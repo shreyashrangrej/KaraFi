@@ -59,12 +59,6 @@ const userDetailModelValidate = [
     body('birthPlace')
         .isString()
         .withMessage('Birth Place should be string.'),
-
-    body('user')
-        .exists({ checkFalsy: true })
-        .withMessage('User is required.')
-        .isString()
-        .withMessage('User should be string.')
 ];
 
 module.exports = userDetailModelValidate;

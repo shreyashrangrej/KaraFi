@@ -2,7 +2,6 @@ const express = require('express')
 const userDetailRouter = express.Router()
 const userDetailModelValidate = require('../validators/userDetail.validator')
 const upload = require('../middleware/upload')
-const { authJwt } = require('../authentication/middlewares')
 
 const {
     getUser,
@@ -15,20 +14,20 @@ const {
     deleteUserImage
 } = require('../controllers/userDetail.controller')
 
-userDetailRouter.get('/users', [authJwt.verifyToken, authJwt.isCompanyAdmin], getUser)
+userDetailRouter.get('/users', getUser)
 
-userDetailRouter.get('/user/:id', [authJwt.verifyToken, authJwt.isCompanyAdmin], getUserByEmail)
+userDetailRouter.get('/user/:id', getUserByEmail)
 
-userDetailRouter.post('/user', [authJwt.verifyToken, authJwt.isCompanyAdmin], userDetailModelValidate, createUser) 
+userDetailRouter.post('/user', userDetailModelValidate, createUser) 
 
-userDetailRouter.patch('/user/:id', [authJwt.verifyToken, authJwt.isCompanyAdmin], userDetailModelValidate, updateUser) 
+userDetailRouter.patch('/user/:id', userDetailModelValidate, updateUser) 
 
-userDetailRouter.delete('/user/:id', [authJwt.verifyToken, authJwt.isCompanyAdmin], deleteUser)
+userDetailRouter.delete('/user/:id', deleteUser)
 
-userDetailRouter.get('/user/:id/:fields', [authJwt.verifyToken, authJwt.isCompanyAdmin], getUserPopulate)
+userDetailRouter.get('/user/:id/:fields', getUserPopulate)
 
-userDetailRouter.post('/user/image/:id', [authJwt.verifyToken, authJwt.isCompanyAdmin], upload.single('userImage'), createUserImage)
+userDetailRouter.post('/user/image/:id', upload.single('userImage'), createUserImage)
 
-userDetailRouter.delete('/user/image/:id', [authJwt.verifyToken, authJwt.isCompanyAdmin], deleteUserImage)
+userDetailRouter.delete('/user/image/:id', deleteUserImage)
 
 module.exports = userDetailRouter;

@@ -5,8 +5,6 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
-const authRouter = require('./authentication/routes/auth.routes')
-const userRouter = require('./authentication/routes/user.routes')
 const userDetailRoutes = require('./routes/userDetail.route')
 const addressRoutes = require('./routes/address.route');
 const projectRouter = require('./routes/project.route');
@@ -23,10 +21,6 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 
 app.use(bodyParser.json())
-
-app.use('/api', authRouter)
-
-app.use('/api', userRouter)
 
 app.use('/api', userDetailRoutes)
 
