@@ -1,4 +1,4 @@
-# User Details - Schema Overview
+# User Master - Schema Overview
 
 Total Fields: 17
 
