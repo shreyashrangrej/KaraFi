@@ -1,4 +1,5 @@
 const projectSchema = require('../models/project.model')
+const userSchema = require('../models/userMaster.model');
 
 const getProject = async (req, res, next) => {
     try {
@@ -41,6 +42,23 @@ const createProject = async (req, res, next) => {
     })
 
     try {
+        const findCreator = await userSchema.findById(projectCreator)
+        if (!findCreator) {
+            return res.status(404).json({ error: 'Could not find Project Creator for provided user ID: ' + userMaster })
+        }
+        findCreator.createdProject.push(createdProject.id)
+
+        let findOwner
+        for (let i = 0; i < projectOwner.length; i++) {
+            findOwner = await userSchema.findById(projectOwner[i])
+            if (!findOwner) {
+                return res.status(404).json({ error: 'Could not find Project Owner For provided user ID: ' + projectOwner[i] })
+            }
+            findOwner.ownerOfProject.push(createdProject.id)
+        }
+
+        await findOwner.save()
+        await findCreator.save()
         await createdProject.save()
     } catch (error) {
         console.log(error)

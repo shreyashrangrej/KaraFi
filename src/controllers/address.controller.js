@@ -1,6 +1,5 @@
 const { validationResult } = require('express-validator');
 const addressSchema = require('../models/address.model');
-
 const userSchema = require('../models/userMaster.model');
 
 const getAddress = async (req, res, next) => {
@@ -28,7 +27,7 @@ const getAddressById = async (req, res, next) => {
 };
 
 const createAddress = async (req, res, next) => {
-    const { addressLine1, addressLine2, country, state, district, city, zipCode, userDetail } = req.body;
+    const { addressLine1, addressLine2, country, state, district, city, zipCode, userMaster } = req.body;
     const createdAddress = new addressSchema({
         addressLine1,
         addressLine2,
@@ -37,7 +36,7 @@ const createAddress = async (req, res, next) => {
         district,
         city,
         zipCode,
-        userDetail,
+        userMaster,
     });
 
     try {
@@ -49,9 +48,9 @@ const createAddress = async (req, res, next) => {
             });
         }
         try {
-            const findUser = await userSchema.findById(userDetail)
+            const findUser = await userSchema.findById(userMaster)
             if (!findUser) {
-                return res.status(404).json({ error: 'Could not find user for provided user ID: ' + userDetail })
+                return res.status(404).json({ error: 'Could not find user for provided user ID: ' + userMaster })
             }
             findUser.address = createdAddress.id
             await createdAddress.save();

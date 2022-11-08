@@ -35,13 +35,13 @@ const projectSchema = new mongoose.Schema({
 
     projectCreator: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'userdetail'
+        ref: 'usermaster'
     },
 
     projectOwner: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'userdetail'
+            ref: 'usermaster'
         }
     ]
 })

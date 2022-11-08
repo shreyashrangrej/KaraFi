@@ -36,9 +36,9 @@ const addressModel = new mongoose.Schema({
         required: true
     },
 
-    userDetail: {
+    userMaster: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'userdetail',
+        ref: 'usermaster',
         required: true
     }
 });
