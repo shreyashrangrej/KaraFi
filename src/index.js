@@ -6,8 +6,9 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 
 const userMasterRoutes = require('./routes/userMaster.route')
-const addressRoutes = require('./routes/address.route');
-const projectRouter = require('./routes/project.route');
+const addressRoutes = require('./routes/address.route')
+const projectRouter = require('./routes/project.route')
+const taskRouter = require('./routes/task.route')
 
 const projectImport = require('./import/project.import');
 
@@ -29,6 +30,8 @@ app.use('/api', addressRoutes)
 app.use('/api', projectRouter)
 
 app.use('/api', projectImport)
+
+app.use('/api', taskRouter)
 
 app.use((req, res, next) => {
     res.status(404);
