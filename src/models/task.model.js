@@ -33,6 +33,11 @@ const taskSchema = new mongoose.Schema({
         type: String
     },
 
+    project: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'projects'
+    },
+
     taskCreator: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'usermaster'

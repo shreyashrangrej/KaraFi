@@ -5,12 +5,12 @@ const { getTasks, getTaskById, createTask, updateTask, deleteTask } = require('.
 
 taskRouter.get('/tasks', getTasks)
 
-taskRouter.get('/tasks/:id', getTaskById)
+taskRouter.get('/task/:id', getTaskById)
 
 taskRouter.post('/task', createTask)
 
 taskRouter.patch('/task/:id', updateTask)
 
-taskRouter.delete('/task/id', deleteTask)
+taskRouter.delete('/task/:id', deleteTask)
 
 module.exports = taskRouter

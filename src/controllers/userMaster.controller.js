@@ -21,17 +21,17 @@ const getUserByEmail = async (req, res, next) => {
     try {
         user = await userSchema.findOne({ email: email });
     } catch (err) {
-        res.status(404).json({ Error: "Something went wrong, could not find user: " + email });
+        res.status(404).json({ Error: 'Something went wrong, could not find user: ' + email })
         return next();
     }
     if (!user) {
-        return res.status(404).json({ Error: "Could not find the user for provided email: " + email });
+        return res.status(404).json({ Error: 'Could not find the user for provided email: ' + email })
     }
-    res.json({ user: user });
+    res.status(200).json({ user: user })
 };
 
 const createUser = async (req, res, next) => {
-    const { firstName, lastName, email, gender, dateOfBirth, phoneNumber, jobTitle, nationality, birthPlace } = req.body;
+    const { firstName, lastName, email, gender, dateOfBirth, phoneNumber, jobTitle, nationality, birthPlace } = req.body
     const createdUser = new userSchema({
         firstName,
         lastName,
@@ -63,9 +63,9 @@ const createUser = async (req, res, next) => {
         if (err.code === 11000) {
             res.status(422).json({ Error: err.message });
         } else {
-            res.status(500).json({ Error: 'Creating User failed, please try again.' });
+            res.status(500).json({ Error: 'Creating User failed, please try again or check logs.' });
         }
-        return next();
+        return next()
     }
     res.status(200).json({ user: createdUser });
 };
@@ -78,8 +78,8 @@ const updateUser = async (req, res, next) => {
     try {
         user = await userSchema.findOne({ email: emailId });
     } catch (err) {
-        res.status(500).json({ Error: "Could not find the user for provided ID: " + emailId });
-        return next();
+        res.status(500).json({ Error: 'Could not find the user for provided ID: ' + emailId })
+        return next()
     }
 
     user.firstName = firstName;
