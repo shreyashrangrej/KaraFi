@@ -1,5 +1,5 @@
 const express = require('express')
-const addressRouter = express.Router()
+const router = express.Router()
 const addressModelValidate = require('../validators/address.validator')
 
 const {
@@ -11,16 +11,16 @@ const {
     getAddressPopulate
 } = require('../controllers/address.controller')
 
-addressRouter.get('/addresses', getAddress)
+router.get('/addresses', getAddress)
 
-addressRouter.get('/address/:id', getAddressById)
+router.get('/address/:id', getAddressById)
 
-addressRouter.post('/address', addressModelValidate, createAddress)
+router.post('/address', addressModelValidate, createAddress)
 
-addressRouter.patch('/address/:id', addressModelValidate, updateAddress)
+router.patch('/address/:id', addressModelValidate, updateAddress)
 
-addressRouter.delete('/address/:id', deleteAddress)
+router.delete('/address/:id', deleteAddress)
 
-addressRouter.get('/address/:id/:field', getAddressPopulate)
+router.get('/address/:id/:field', getAddressPopulate)
 
-module.exports = addressRouter;
+module.exports = router;

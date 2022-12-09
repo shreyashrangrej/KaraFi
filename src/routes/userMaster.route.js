@@ -1,5 +1,5 @@
 const express = require('express')
-const userMasterRouter = express.Router()
+const router = express.Router()
 const userMasterModelValidate = require('../validators/userMaster.validator')
 const upload = require('../middleware/upload')
 
@@ -14,20 +14,20 @@ const {
     deleteUserImage
 } = require('../controllers/userMaster.controller')
 
-userMasterRouter.get('/users', getUser)
+router.get('/users', getUser)
 
-userMasterRouter.get('/user/:id', getUserByEmail)
+router.get('/user/:id', getUserByEmail)
 
-userMasterRouter.post('/user', userMasterModelValidate, createUser)
+router.post('/user', userMasterModelValidate, createUser)
 
-userMasterRouter.patch('/user/:id', userMasterModelValidate, updateUser) 
+router.patch('/user/:id', userMasterModelValidate, updateUser) 
 
-userMasterRouter.delete('/user/:id', deleteUser)
+router.delete('/user/:id', deleteUser)
 
-userMasterRouter.get('/user/:id/:fields', getUserPopulate)
+router.get('/user/:id/:fields', getUserPopulate)
 
-userMasterRouter.post('/user/image/:id', upload.single('userImage'), createUserImage)
+router.post('/user/image/:id', upload.single('userImage'), createUserImage)
 
-userMasterRouter.delete('/user/image/:id', deleteUserImage)
+router.delete('/user/image/:id', deleteUserImage)
 
-module.exports = userMasterRouter;
+module.exports = router;

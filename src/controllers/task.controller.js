@@ -42,8 +42,7 @@ const createTask = async (req, res, next) => {
     try {
         await createTask.save()
     } catch (error) {
-        console.log(error)
-        res.status(500).json({ Error: 'Creating User task, please try again or check logs.' });
+        res.status(500).json({ Error: error.message })
         return next()
     }
     res.status(200).json({ task: createTask });
@@ -84,7 +83,22 @@ const updateTask = async (req, res, next) => {
 }
 
 const deleteTask = async (req, res, next) => {
-    return res.status(200).json({ Message: "delete Task" });
+    const id = req.params.id
+    let task
+    try {
+        task = await taskSchema.findOne({ taskId: id })
+    } catch (error) {
+        res.status(404).json({Error: 'Cannot find task with provided ID: ' + id})
+        return next()
+    }
+    try {
+        await task.remove()
+    } catch (error){
+        console.log(error)
+        res.status(500).json({ Error: 'Something went wrong. Could not delete task: ' + id })
+        return next()
+    }
+    res.status(200).json({ deletedTask: task })
 }
 
 module.exports = {

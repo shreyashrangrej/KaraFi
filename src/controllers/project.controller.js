@@ -103,7 +103,7 @@ const updateProject = async (req, res, next) => {
 }
 
 const deleteProject = async (req, res, next) => {
-    const projectId = req.params.id;
+    const projectId = req.params.id
 
     let project;
     try {
