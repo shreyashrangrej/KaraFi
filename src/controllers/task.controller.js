@@ -1,5 +1,4 @@
 const taskSchema = require('../models/task.model')
-
 const getTasks = async (req, res, next) => {
     try {
         const task = await taskSchema.find()
@@ -9,7 +8,6 @@ const getTasks = async (req, res, next) => {
         return res.status(404).json({ Error: "Something went wrong, could not find users. Please check logs." });
     }
 }
-
 const getTaskById = async (req, res, next) => {
     const id = req.params.id
     let task
@@ -24,7 +22,6 @@ const getTaskById = async (req, res, next) => {
     }
     res.status(200).json({ task: task })
 }
-
 const createTask = async (req, res, next) => {
     const { taskId, taskTitle, taskDescription, startDate, dueDate, status, priority, project, taskCreator, taskOwner } = req.body
     const createTask = new taskSchema({
@@ -47,11 +44,9 @@ const createTask = async (req, res, next) => {
     }
     res.status(200).json({ task: createTask });
 }
-
 const updateTask = async (req, res, next) => {
     const { taskId, taskTitle, taskDescription, startDate, dueDate, status, priority, project, taskCreator, taskOwner } = req.body
     const id = req.params.id
-
     let task
     try {
         task = await taskSchema.findOne({ taskId: id })
@@ -60,7 +55,6 @@ const updateTask = async (req, res, next) => {
         res.status(500).json({ Error: 'Could not find the task for provided ID: ' + id });
         return next()
     }
-
     task.taskId = taskId
     task.taskTitle = taskTitle
     task.taskDescription = taskDescription
@@ -71,7 +65,6 @@ const updateTask = async (req, res, next) => {
     task.project = project
     task.taskCreator = taskCreator
     task.taskOwner = taskOwner
-
     try {
         await task.save()
     } catch (error) {
@@ -81,7 +74,6 @@ const updateTask = async (req, res, next) => {
     }
     res.status(200).json({ task: task })
 }
-
 const deleteTask = async (req, res, next) => {
     const id = req.params.id
     let task
@@ -100,7 +92,6 @@ const deleteTask = async (req, res, next) => {
     }
     res.status(200).json({ deletedTask: task })
 }
-
 module.exports = {
     getTasks,
     getTaskById,
