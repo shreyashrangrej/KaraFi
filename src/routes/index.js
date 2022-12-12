@@ -5,4 +5,6 @@ router.use('/api', require('./address.route'))
 router.use('/api', require('./project.route'))
 router.use('/api', require('./task.route'))
 router.use('/api', require('./subtask.route'))
+router.use('/api', require('./department.route'))
+router.use('/api', require('./organization.route'))
 module.exports = router

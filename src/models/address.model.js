@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 const addressModel = new mongoose.Schema({
     addressLine1: {
         type: String,
