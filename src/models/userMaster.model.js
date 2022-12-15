@@ -53,6 +53,42 @@ const userMasterModel = new mongoose.Schema({
             ref: 'project'
         }
     ],
+    createdTask: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'tasks'
+        }
+    ],
+    taskOfOwner: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'tasks'
+        }
+    ],
+    createdSubTask: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'subtasks'
+        }
+    ],
+    ownerOfSubTasks: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'subtasks'
+        }
+    ],
+    departmentAsHead: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'departments'
+        }
+    ],
+    departmentAsMember: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'departments'
+        }
+    ],
     publicId: {
         type: String
     },
