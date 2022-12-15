@@ -25,6 +25,12 @@ const taskSchema = new mongoose.Schema({
     numberOfSubTasks: {
         type: String
     },
+    subtasks: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'subtasks'
+        }
+    ],
     project: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'projects'
