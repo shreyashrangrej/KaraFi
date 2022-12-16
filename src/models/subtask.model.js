@@ -1,13 +1,13 @@
 const mongoose = require('mongoose')
 const Schema = new mongoose.Schema({
-    taskId: {
+    subTaskId: {
         type: String,
         unique: true
     },
-    taskTitle: {
+    subTaskTitle: {
         type: String
     },
-    taskDescription: {
+    subTaskDescription: {
         type: String
     },
     startDate: {
@@ -30,11 +30,11 @@ const Schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'projects'
     },
-    taskCreator: {
+    subTaskCreator: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'usermaster'
     },
-    taskOwner: [
+    subTaskOwner: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'usermaster'
