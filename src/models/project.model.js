@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 const projectSchema = new mongoose.Schema({
     projectId: {
-        type: String
+        type: String,
+        unique: true
     },
     projectTitle: {
         type: String
@@ -23,6 +24,10 @@ const projectSchema = new mongoose.Schema({
     },
     numberOfTasks: {
         type: String
+    },
+    department: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'departments'
     },
     projectCreator: {
         type: mongoose.Schema.Types.ObjectId,

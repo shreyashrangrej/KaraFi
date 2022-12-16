@@ -1,5 +1,6 @@
 const projectSchema = require('../models/project.model')
 const userSchema = require('../models/userMaster.model')
+const departmentSchema = require('../models/department.model')
 const getProject = async (req, res, next) => {
     try {
         const project = await projectSchema.find()
@@ -24,7 +25,7 @@ const getProjectById = async (req, res, next) => {
     res.json({ project: project });
 }
 const createProject = async (req, res, next) => {
-    const { projectId, projectTitle, projectDescription, startDate, dueDate, status, priority, numberOfTasks, projectCreator, projectOwner } = req.body
+    const { projectId, projectTitle, projectDescription, startDate, dueDate, status, priority, numberOfTasks, department, projectCreator, projectOwner } = req.body
     const createdProject = new projectSchema({
         projectId,
         projectTitle,
@@ -34,6 +35,7 @@ const createProject = async (req, res, next) => {
         status,
         priority,
         numberOfTasks,
+        department,
         projectCreator,
         projectOwner
     })
@@ -51,8 +53,14 @@ const createProject = async (req, res, next) => {
             }
             findOwner.ownerOfProject.push(createdProject.id)
         }
+        const findDepartment = await departmentSchema.findById(department)
+        if (!findDepartment){
+            return res.status(404).json({ error: 'Could not find department for provided user ID: ' + department })
+        }
+        findDepartment.departmentProjects.push(createdProject.id)
         await findOwner.save()
         await findCreator.save()
+        await findDepartment.save()
         await createdProject.save()
     } catch (error) {
         console.log(error)
