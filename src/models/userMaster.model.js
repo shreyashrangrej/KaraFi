@@ -37,10 +37,6 @@ const userMasterModel = new mongoose.Schema({
     birthPlace: {
         type: String,
     },
-    address: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Address'
-    },
     createdProject: [
         {
             type: mongoose.Schema.Types.ObjectId,
