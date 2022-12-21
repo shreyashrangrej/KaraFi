@@ -19,8 +19,16 @@ const Schema = new mongoose.Schema({
     status: {
         type: String
     },
+    statusId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'status'
+    },
     priority: {
         type: String
+    },
+    priorityId : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'priorities'
     },
     parentTask: {
         type: mongoose.Schema.Types.ObjectId,

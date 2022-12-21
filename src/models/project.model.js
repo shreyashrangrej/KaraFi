@@ -19,8 +19,16 @@ const projectSchema = new mongoose.Schema({
     status: {
         type: String
     },
+    statusId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'status'
+    },
     priority: {
         type: String
+    },
+    priorityId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'priorities'
     },
     numberOfTasks: {
         type: String
@@ -29,10 +37,20 @@ const projectSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'departments'
     },
+    organization: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'organizations'
+    },
     tasks: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'tasks'
+        }
+    ],
+    subTasks: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'subtasks'
         }
     ],
     projectCreator: {

@@ -19,8 +19,16 @@ const taskSchema = new mongoose.Schema({
     status: {
         type: String
     },
+    statusId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'status'
+    },
     priority: {
         type: String
+    },
+    priorityId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'priorities'
     },
     numberOfSubTasks: {
         type: String
