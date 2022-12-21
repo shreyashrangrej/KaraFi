@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator')
 const projectSchema = require('../models/project.model')
 const userSchema = require('../models/userMaster.model')
 const departmentSchema = require('../models/department.model')
@@ -40,6 +41,13 @@ const createProject = async (req, res, next) => {
         projectOwner
     })
     try {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(422).json({
+                success: false,
+                errors: errors.array(),
+            })
+        }
         const findCreator = await userSchema.findById(projectCreator)
         if (!findCreator) {
             return res.status(404).json({ error: 'Could not find Project Creator for provided user ID: ' + userMaster })

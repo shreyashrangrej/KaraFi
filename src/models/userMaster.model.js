@@ -2,34 +2,25 @@ const mongoose = require('mongoose')
 const userMasterModel = new mongoose.Schema({
     firstName: {
         type: String,
-        required: true,
-        minlength: 3,
     },
     lastName: {
         type: String,
-        required: true,
-        minlength: 3,
     },
     email: {
         type: String,
-        unique: true,
-        required: true,
+        unique: true
     },
     gender: {
         type: String,
-        required: true,
     },
     dateOfBirth: {
         type: Date,
-        required: true
     },
     phoneNumber: {
         type: String,
-        require: true,
     },
     jobTitle: {
         type: String,
-        require: true,
     },
     nationality: {
         type: String,
@@ -90,7 +81,6 @@ const userMasterModel = new mongoose.Schema({
     },
     imageUrl: {
         type: String,
-        required: false
     }
 })
 userMasterModel.set('timestamps', true)

@@ -45,7 +45,7 @@ const createUser = async (req, res, next) => {
             return res.status(422).json({
                 success: false,
                 errors: errors.array(),
-            });
+            })
         }
         try {
             await createdUser.save()
