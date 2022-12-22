@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator')
 const prioritySchema = require('../models/priority.model')
 const getPriorities = async (req, res, next) => {
     try {
@@ -32,6 +33,13 @@ const createPriority = async (req, res, next) => {
         subtasks
     })
     try {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(422).json({
+                success: false,
+                errors: errors.array(),
+            })
+        }
         await createPriority.save()
     } catch (error) {
         res.status(500).json({ Error: error.message })
@@ -56,6 +64,13 @@ const updatePriority = async (req, res, next) => {
     priority.tasks = tasks
     priority.subtasks = subtasks
     try {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(422).json({
+                success: false,
+                errors: errors.array(),
+            })
+        }
         await priority.save()
     } catch (error) {
         res.status(500).json({ Error: error.message })

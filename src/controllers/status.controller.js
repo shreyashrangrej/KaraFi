@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator')
 const statusSchema = require('../models/status.model')
 const getStatuses = async (req, res, next) => {
     try {
@@ -32,6 +33,13 @@ const createStatus = async (req, res, next) => {
         subTasks
     })
     try {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(422).json({
+                success: false,
+                errors: errors.array(),
+            })
+        }
         await createStatus.save()
     } catch (error) {
         res.status(500).json({ Error: error.message })
@@ -56,6 +64,13 @@ const updateStatus = async (req, res, next) => {
     status.tasks = tasks
     status.subTasks = subTasks
     try {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(422).json({
+                success: false,
+                errors: errors.array(),
+            })
+        }
         await status.save()
     } catch (error) {
         res.status(500).json({ Error: error.message })

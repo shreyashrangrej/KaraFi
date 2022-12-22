@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
+const validator = require('../validators/priority.validator')
 const { getPriorities, getPriorityById, createPriority, updatePriority, deletePriority } = require('../controllers/priority.controller')
 router.get('/priority', getPriorities)
 router.get('/priority/:id', getPriorityById)
-router.post('/priority', createPriority)
-router.patch('/priority/:id', updatePriority)
+router.post('/priority', validator, createPriority)
+router.patch('/priority/:id', validator, updatePriority)
 router.delete('/priority/:id', deletePriority)
 module.exports = router
