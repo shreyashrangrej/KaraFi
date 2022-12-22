@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator')
 const subTaskSchema = require('../models/subtask.model')
 const getSubTasks = async (req, res, next) => {
     try {
@@ -17,14 +18,14 @@ const getSubTaskById = async (req, res, next) => {
         res.status(404).json({ Error: 'Something went wrong, could not find task: ' + id + error.message })
         return next()
     }
-    if(!subTask){
+    if (!subTask) {
         return res.status(404).json({ Error: 'Could not find the task for provided ID: ' + id })
     }
     res.status(200).json({ subTask: subTask })
 }
 const createSubTask = async (req, res, next) => {
     const { taskId, taskTitle, taskDescription, startDate, dueDate, status, priority, parentTask, project, taskCreator, taskOwner } = req.body
-    const createSubTask = new subTaskSchema ({
+    const createSubTask = new subTaskSchema({
         taskId,
         taskTitle,
         taskDescription,
@@ -38,6 +39,13 @@ const createSubTask = async (req, res, next) => {
         taskOwner
     })
     try {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(422).json({
+                success: false,
+                errors: errors.array(),
+            })
+        }
         await createSubTask.save()
     } catch (error) {
         res.status(500).json({ Error: error.message })
@@ -67,6 +75,13 @@ const updateSubTask = async (req, res, next) => {
     subTask.taskCreator = taskCreator
     subTask.taskOwner = taskOwner
     try {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(422).json({
+                success: false,
+                errors: errors.array(),
+            })
+        }
         await subTask.save()
     } catch (error) {
         res.status(500).json({ Error: error.message })
@@ -80,13 +95,13 @@ const deleteSubTask = async (req, res, next) => {
     try {
         subTask = await subTaskSchema.findOne({ taskId: id })
     } catch (error) {
-        res.status(404).json({Error: 'Cannot find sub task with provided ID: ' + id + error.message})
+        res.status(404).json({ Error: 'Cannot find sub task with provided ID: ' + id + error.message })
         return next()
     }
     try {
         await subTask.remove()
-    } catch (error){
-        res.status(500).json({ Error: 'Something went wrong. Could not delete sub task: ' + id + error.message})
+    } catch (error) {
+        res.status(500).json({ Error: 'Something went wrong. Could not delete sub task: ' + id + error.message })
         return next()
     }
     res.status(200).json({ deletedSubTask: subTask })

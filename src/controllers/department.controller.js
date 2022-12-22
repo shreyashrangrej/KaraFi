@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator')
 const departmentSchema = require('../models/department.model')
 const getDepartments = async (req, res, next) => {
     try {
@@ -32,6 +33,13 @@ const createDepartment = async (req, res, next) => {
         departmentProjects
     })
     try {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(422).json({
+                success: false,
+                errors: errors.array(),
+            })
+        }
         await createDepartment.save()
     } catch (error) {
         res.status(500).json({ Error: error.message })
@@ -56,6 +64,13 @@ const updateDepartment = async (req, res, next) => {
     department.departmentMembers = departmentMembers
     department.departmentProjects = departmentProjects
     try {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(422).json({
+                success: false,
+                errors: errors.array(),
+            })
+        }
         await department.save()
     } catch (error) {
         res.status(500).json({ Error: error.message })

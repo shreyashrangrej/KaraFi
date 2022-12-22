@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
+const validator = require('../validators/subtask.validator')
 const { getSubTasks, getSubTaskById, createSubTask, updateSubTask, deleteSubTask } = require('../controllers/subtask.controller')
 router.get('/subtask', getSubTasks)
 router.get('/subtask/:id', getSubTaskById)
-router.post('/subtask', createSubTask)
-router.patch('/subtask/:id', updateSubTask)
+router.post('/subtask', validator, createSubTask)
+router.patch('/subtask/:id', validator, updateSubTask)
 router.delete('/subtask/:id', deleteSubTask)
 module.exports = router

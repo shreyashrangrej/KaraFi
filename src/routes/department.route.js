@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
+const validator = require('../validators/department.validator')
 const { getDepartments, getDepartmentById, createDepartment, updateDepartment, deleteDepartment } = require('../controllers/department.controller')
 router.get('/department', getDepartments)
 router.get('/department/:id', getDepartmentById)
-router.post('/department', createDepartment)
-router.patch('/department/:id', updateDepartment)
+router.post('/department', validator, createDepartment)
+router.patch('/department/:id', validator, updateDepartment)
 router.delete('/department/:id', deleteDepartment)
 module.exports = router
