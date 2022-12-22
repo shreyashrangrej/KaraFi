@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator')
 const taskSchema = require('../models/task.model')
 const getTasks = async (req, res, next) => {
     try {
@@ -37,6 +38,13 @@ const createTask = async (req, res, next) => {
         taskOwner
     })
     try {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(422).json({
+                success: false,
+                errors: errors.array(),
+            })
+        }
         await createTask.save()
     } catch (error) {
         res.status(500).json({ Error: error.message })
@@ -66,6 +74,13 @@ const updateTask = async (req, res, next) => {
     task.taskCreator = taskCreator
     task.taskOwner = taskOwner
     try {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(422).json({
+                success: false,
+                errors: errors.array(),
+            })
+        }
         await task.save()
     } catch (error) {
         console.log(error)

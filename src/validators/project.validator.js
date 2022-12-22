@@ -23,7 +23,7 @@ const validator = [
         .exists({ checkFalsy: true })
         .withMessage('status is required')
         .isString()
-        .withMessage('statusshould be string.'),
+        .withMessage('status should be string.'),
     body('priority')
         .exists({ checkFalsy: true })
         .withMessage('priority is required.')

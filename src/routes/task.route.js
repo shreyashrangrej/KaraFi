@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
+const validator = require('../validators/task.validator')
 const { getTasks, getTaskById, createTask, updateTask, deleteTask } = require('../controllers/task.controller')
 router.get('/task', getTasks)
 router.get('/task/:id', getTaskById)
-router.post('/task', createTask)
-router.patch('/task/:id', updateTask)
+router.post('/task', validator, createTask)
+router.patch('/task/:id', validator, updateTask)
 router.delete('/task/:id', deleteTask)
 module.exports = router
