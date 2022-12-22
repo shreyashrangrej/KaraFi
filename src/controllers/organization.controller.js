@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator')
 const organizationSchema = require('../models/organization.model')
 const getOrganizations = async (req, res, next) => {
     try {
@@ -37,6 +38,13 @@ const createOrganization = async (req, res, next) => {
         projects
     })
     try {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(422).json({
+                success: false,
+                errors: errors.array(),
+            })
+        }
         await createOrganization.save()
     } catch (error) {
         res.status(500).json({ Error: error.message })
@@ -66,6 +74,13 @@ const updateOrganization = async (req, res, next) => {
     organization.type = type
     organization.projects = projects
     try {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(422).json({
+                success: false,
+                errors: errors.array(),
+            })
+        }
         await organization.save()
     } catch (error) {
         res.status(500).json({ Error: error.message })
