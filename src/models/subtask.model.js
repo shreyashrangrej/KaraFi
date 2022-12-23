@@ -34,10 +34,6 @@ const Schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'tasks'
     },
-    project: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'projects'
-    },
     subTaskCreator: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'usermaster'

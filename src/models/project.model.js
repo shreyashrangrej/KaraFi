@@ -33,10 +33,12 @@ const projectSchema = new mongoose.Schema({
     numberOfTasks: {
         type: String
     },
-    department: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'departments'
-    },
+    department: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'departments'
+        }
+    ],
     organization: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'organizations'

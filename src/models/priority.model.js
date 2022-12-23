@@ -22,7 +22,7 @@ const Schema = new mongoose.Schema({
             ref: 'tasks'
         }
     ],
-    subtasks: [
+    subTasks: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'subtasks'
