@@ -52,16 +52,13 @@ const verifyEmail = async (req, res, next) => {
 }
 const getProfile = async (req, res, next) => {
     try {
-        const user = await userSchema.findById(req.user.id);
-        // If the user's email is not verified, return an error message
+        const user = await userSchema.findById(req.user.id)
         if (!user.emailVerified) {
-            return res.status(401).send({ message: 'Email not verified' });
+            return res.status(401).send({ message: 'Email not verified' })
         }
-
-        // If the user's email is verified, return the user's profile
-        res.send({ message: 'Welcome to your profile', user });
+        res.send({ message: 'Welcome to your profile', user })
     } catch (err) {
-        res.status(500).send(err);
+        res.status(500).send(err)
     }
 }
 module.exports = { login, register, verifyEmail, getProfile }

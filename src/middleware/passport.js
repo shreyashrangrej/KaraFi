@@ -9,26 +9,17 @@ passport.use(
         },
         async (email, password, done) => {
             try {
-                // Find the user with the given email
-                const user = await User.findOne({ email });
-
-                // If the user is not found, return a message
+                const user = await User.findOne({ email })
                 if (!user) {
-                    return done(null, false, { message: 'Email not found' });
+                    return done(null, false, { message: 'Email not found' })
                 }
-
-                // Check if the password is correct
-                const isMatch = await user.comparePassword(password);
-
-                // If the password is incorrect, return a message
+                const isMatch = await user.comparePassword(password)
                 if (!isMatch) {
-                    return done(null, false, { message: 'Password is incorrect' });
+                    return done(null, false, { message: 'Password is incorrect' })
                 }
-
-                // If the email and password are correct, return the user object
-                return done(null, user);
+                return done(null, user)
             } catch (err) {
-                done(err);
+                done(err)
             }
         }
     )
@@ -36,7 +27,6 @@ passport.use(
 passport.serializeUser((user, done) => {
     done(null, user.id);
 })
-
 passport.deserializeUser(async (id, done) => {
     try {
         const user = await User.findById(id);
@@ -45,3 +35,4 @@ passport.deserializeUser(async (id, done) => {
         done(err, null);
     }
 })
+module.exports = passport
