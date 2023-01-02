@@ -28,7 +28,6 @@ const register = async (req, res, next) => {
 const verifyEmail = async (req, res, next) => {
     try {
         const decoded = jwt.verify(req.params.token, process.env.JWT_SECRET)
-        // Update the user's emailVerified field
         const user = await userSchema.findByIdAndUpdate(
             decoded.userId,
             { emailVerified: true },
