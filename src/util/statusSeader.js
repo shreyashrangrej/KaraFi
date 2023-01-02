@@ -32,11 +32,13 @@ const seedStatus = async () => {
             const existingStatus = await statusSchema.findOne({ statusId: status.statusId })
             if (existingStatus) {
                 await statusSchema.updateOne({ _id: existingStatus._id }, status)
+                console.log('Database is upto date for Status: '+ existingStatus.statusName)
             } else {
                 await statusSchema.create(status)
+                console.log('Database seeded with new status: '+ status.statusName)
             }
         }
-        console.log('Database Seeded With New Default Statuses.')
+        // console.log('Database Seeded With New Default Statuses.')
     } catch (error) {
         console.error(error)
     }

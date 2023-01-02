@@ -32,11 +32,12 @@ const seedPriority = async () => {
             const existingPriority = await prioritySchema.findOne({ priorityId: priority.priorityId })
             if (existingPriority) {
                 await prioritySchema.updateOne({ _id: existingPriority._id }, priority)
+                console.log('Database is upto date for priority: '+ existingPriority.priorityName)
             } else {
                 await prioritySchema.create(priority)
+                console.log('Database seeded with new priority: '+ priority.priorityName)
             }
         }
-        console.log('Database Seeded With New Default Priorities.')
     } catch (error) {
         console.error(error)
     }
