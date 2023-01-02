@@ -2,11 +2,10 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const sendVerificationEmail = async (user) => {
     try {
-        // Generate the verification token
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
             expiresIn: '1d'
         });
-        // Set up the email transporter
+        const url = process.env.APPLICATION_URL + '/api/verify-email/' + token
         const transporter = nodemailer.createTransport({
             host: process.env.SMTP_HOST,
             port: process.env.SMTP_PORT,
@@ -14,23 +13,27 @@ const sendVerificationEmail = async (user) => {
                 user: process.env.EMAIL_USERNAME,
                 pass: process.env.EMAIL_PASSWORD
             }
-        });
-        // Define the email options
+        })
         const mailOptions = {
             from: process.env.EMAIL_SENDER,
             to: user.email,
-            subject: 'Email verification',
+            subject: 'Welcome to KaraFi! Email Verification.',
             html:
-            `<p>Please click the following link to verify your email address:</p>
-                <p>
-                    <a href="http://localhost:3000/api/verify-email/${token}">http://localhost:3000/api/verify-email/${token}
-                </a>
-            </p>`
-        };
-        // Send the email
-        await transporter.sendMail(mailOptions);
+            `<html>
+            <head>
+            <title>Verification Link</title>
+            </head>
+            <body>
+              <h1>Hello!</h1>
+              <p>Thank you for signing up for our service. To complete your registration, please click the following link:</p>
+              <p><a href="${url}">Verify my email address</a></p>
+              <p>If you did not sign up for our service, you can safely ignore this email.</p>
+            </body>
+            </html>`
+        }
+        await transporter.sendMail(mailOptions)
     } catch (err) {
-        throw new Error(err);
+        throw new Error(err)
     }
 }
 module.exports = sendVerificationEmail
