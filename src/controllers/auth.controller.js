@@ -53,7 +53,13 @@ const getProfile = async (req, res, next) => {
         res.status(500).send(err)
     }
 }
-const checkAdmin = async (req, res, next) => {
+const verifyAdmin = async (req, res, next) => {
     res.send({ message: 'Welcome to the admin area' })
 }
-module.exports = { login, register, verifyEmail, getProfile, checkAdmin }
+const verifyProjectManager = async (req, res, next) => {
+    res.send({ message: 'Welcome to the project manager area' })
+}
+const verifyUser = async (req, res, next) => {
+    res.send({ message: 'Welcome to the user area' })
+}
+module.exports = { login, register, verifyEmail, getProfile, verifyAdmin, verifyProjectManager, verifyUser }
