@@ -18,6 +18,10 @@ const userModel = new mongoose.Schema({
     emailVerified: {
         type: Boolean,
         default: false
+    },
+    token: {
+        type: String,
+        unique: true
     }
 })
 userModel.pre('save', async function (next) {
@@ -40,5 +44,5 @@ userModel.methods.comparePassword = async function (candidatePassword, next) {
         return next(err);
     }
 };
-const User = mongoose.model('user', userModel);
-module.exports = User;
+const User = mongoose.model('user', userModel)
+module.exports = User

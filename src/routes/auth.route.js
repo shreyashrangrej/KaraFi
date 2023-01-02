@@ -1,14 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('../middleware/passport')
-const { login, register, verifyEmail, getProfile } = require('../controllers/auth.controller')
+const { login, register, verifyEmail, getProfile, checkAdmin } = require('../controllers/auth.controller')
 const { checkAuth } = require('../middleware/checkAuth')
 const { checkRole } = require('../middleware/checkRole')
-router.get('/verify-email/:token', verifyEmail)
-router.get('/admin', checkAuth, checkRole(['admin']), (req, res) => {
-    res.send({ message: 'Welcome to the admin area' });
-})
-router.get('/profile', checkAuth, getProfile)
-router.post('/login', passport.authenticate('local', { session: false }), login)
 router.post('/register', register)
+router.post('/login', passport.authenticate('local', { session: false }), login)
+router.get('/verify-email/:token', verifyEmail)
+router.get('/profile', passport.authenticate('bearer', { session: false }), getProfile)
+router.get('/checkAdmin', checkRole(['admin']), checkAdmin)
 module.exports = router

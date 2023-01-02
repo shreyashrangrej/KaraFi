@@ -6,48 +6,40 @@ const login = async (req, res, next) => {
         expiresIn: '7d'
     })
     res.send({ token })
+    const user = await userSchema.findByIdAndUpdate(
+        req.user.id,
+        { token: token }
+    )
 }
 const register = async (req, res, next) => {
     try {
-        // Create a new user
         const user = new userSchema({
             email: req.body.email,
             password: req.body.password,
             role: req.body.role
         })
-        // Save the user to the database
-        await user.save();
-
-        // Send the email verification link
-        await sendVerificationEmail(user);
-
-        // Return a success message
-        res.send({ message: 'Registration successful, please check your email' });
+        await user.save()
+        await sendVerificationEmail(user)
+        res.send({ message: 'Registration successful, please check your email' })
     } catch (err) {
-        res.status(500).send(err);
+        res.status(500).send(err)
     }
 }
 const verifyEmail = async (req, res, next) => {
     try {
-        // Verify the token
-        const decoded = jwt.verify(req.params.token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(req.params.token, process.env.JWT_SECRET)
         // Update the user's emailVerified field
         const user = await userSchema.findByIdAndUpdate(
             decoded.userId,
             { emailVerified: true },
             { new: true }
-        );
-
-        // If the user is not found, return an error message
+        )
         if (!user) {
-            return res.status(404).send({ message: 'User not found' });
+            return res.status(404).send({ message: 'User not found' })
         }
-
-        // If the user is found, return a success message
-        res.send({ message: 'Email verified successfully' });
+        res.send({ message: 'Email verified successfully' })
     } catch (err) {
-        // If the token is invalid, return an error message
-        res.status(400).send({ message: 'Invalid token' });
+        res.status(400).send({ message: 'Invalid token' })
     }
 }
 const getProfile = async (req, res, next) => {
@@ -61,4 +53,7 @@ const getProfile = async (req, res, next) => {
         res.status(500).send(err)
     }
 }
-module.exports = { login, register, verifyEmail, getProfile }
+const checkAdmin = async (req, res, next) => {
+    res.send({ message: 'Welcome to the admin area' })
+}
+module.exports = { login, register, verifyEmail, getProfile, checkAdmin }

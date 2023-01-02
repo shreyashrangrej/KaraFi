@@ -1,5 +1,6 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
+const BearerStrategy = require('passport-http-bearer').Strategy
 const User = require('../models/user.model')
 passport.use(
     new LocalStrategy(
@@ -24,6 +25,19 @@ passport.use(
         }
     )
 )
+passport.use(new BearerStrategy(
+    async (token, done) => {
+        User.findOne({ token: token }, function (err, user) {
+            if (err) { 
+                return done(err); 
+            }
+            if (!user) { 
+                return done(null, false)
+            }
+            return done(null, user, { scope: 'all' })
+        })
+    }
+))
 passport.serializeUser((user, done) => {
     done(null, user.id);
 })
