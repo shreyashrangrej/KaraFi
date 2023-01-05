@@ -162,11 +162,11 @@ const createUserImage = async (req, res, next) => {
 }
 const deleteUserImage = async (req, res, next) => {
     try {
-        const user = await userSchema.findOne({ _id: req.params.id })
+        const user = await userSchema.findOne({ email: req.params.id })
         const publicId = user.publicId;
         await removeFromCloudinary(publicId);
         await userSchema.updateOne(
-            { _id: req.params.id },
+            { email: req.params.id },
             {
                 $set: {
                     imageUrl: "",
