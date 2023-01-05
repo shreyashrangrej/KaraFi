@@ -1,4 +1,5 @@
 const userSchema = require('../models/user.model')
+const roleSchema = require('../models/role.model')
 const sendVerificationEmail = require('../util/sendVerificationEmail')
 const sendForgotPasswordEmail = require('../util/sendForgotPasswordEmail')
 const jwt = require('jsonwebtoken')
@@ -23,6 +24,10 @@ const register = async (req, res, next) => {
             password: req.body.password,
             role: req.body.role
         })
+        const role = await roleSchema.findOne({ name: user.role })
+        role.users.push(user.id)
+        user.roleId = role.id
+        await role.save()
         await user.save()
         await sendVerificationEmail(user)
         res.send({ message: 'Registration successful, please check your email' })
