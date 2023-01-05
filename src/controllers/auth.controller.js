@@ -1,7 +1,8 @@
 const userSchema = require('../models/user.model')
 const roleSchema = require('../models/role.model')
-const sendVerificationEmail = require('../util/sendVerificationEmail')
-const sendForgotPasswordEmail = require('../util/sendForgotPasswordEmail')
+const sendVerificationEmail = require('../util/emailFunctions/sendVerificationEmail')
+const sendForgotPasswordEmail = require('../util/emailFunctions/sendForgotPasswordEmail')
+const sendInviteEmail = require('../util/emailFunctions/sendInviteEmail')
 const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
 function generateToken() {
@@ -30,6 +31,7 @@ const register = async (req, res, next) => {
         await role.save()
         await user.save()
         await sendVerificationEmail(user)
+        await sendInviteEmail(user)
         res.send({ message: 'Registration successful, please check your email' })
     } catch (err) {
         res.status(500).send(err)

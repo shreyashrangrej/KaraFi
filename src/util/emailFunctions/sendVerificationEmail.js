@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken')
+const nodemailer = require('nodemailer')
 const sendVerificationEmail = async (user) => {
     try {
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
