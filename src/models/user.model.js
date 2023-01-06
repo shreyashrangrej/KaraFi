@@ -32,6 +32,10 @@ const userModel = new mongoose.Schema({
     },
     resetPasswordExpires: {
         type: Date,
+    },
+    userMaster: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "usermasters"
     }
 })
 userModel.pre('save', async function (next) {

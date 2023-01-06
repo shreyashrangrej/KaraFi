@@ -28,6 +28,10 @@ const userMasterModel = new mongoose.Schema({
     birthPlace: {
         type: String,
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users"
+    },
     createdProject: [
         {
             type: mongoose.Schema.Types.ObjectId,
