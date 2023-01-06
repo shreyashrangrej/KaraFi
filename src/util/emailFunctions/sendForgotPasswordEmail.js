@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer')
 const sendForgotPasswordEmail = async(user) => {
     try {
-        const url = process.env.APPLICATION_URL + '/api/reset/' + user.resetPasswordToken
+        const url = process.env.APPLICATION_URL + '/api/auth/reset/' + user.resetPasswordToken
         const transporter = nodemailer.createTransport({
             host: process.env.SMTP_HOST,
             port: process.env.SMTP_PORT,
