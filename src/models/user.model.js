@@ -58,5 +58,6 @@ userModel.methods.comparePassword = async function (candidatePassword, next) {
         return next(err);
     }
 };
+userModel.set('timestamps', true)
 const User = mongoose.model('user', userModel)
 module.exports = User
